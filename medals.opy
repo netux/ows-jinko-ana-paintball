@@ -13,7 +13,13 @@ rule "Send honor medal":
     eventPlayer.HonorBar = 0
 
     eventPlayer.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(eventPlayer.MedalQueue)
-    smallMessage(eventPlayer, "    {0}  honor sent to {1}!".format(iconString(Icon.HAPPY), eventPlayer.HonorTarget))
+    smallMessage(eventPlayer, "    {0}  {1}".format(
+        iconString(Icon.HAPPY),
+        translate({
+            Language.ENGLISH: "honor sent to {0}!".format(eventPlayer.HonorTarget),
+            Language.SPANISH: "honores mandados a {0}!".format(eventPlayer.HonorTarget)
+        })
+    ))
     playEffect(eventPlayer, DynamicEffect.BRIGITTE_REPAIR_PACK_ARMOR_SOUND, Color.WHITE, eventPlayer, 200)
 
 
@@ -79,13 +85,31 @@ rule "Killstreak effects & announcements":
         attacker.setStatusEffect(null, Status.BURNING, 9999)
         attacker.startForcingOutlineFor(getAllPlayers(), true, Color.ORANGE, OutlineVisibility.DEFAULT)
         playEffect(getAllPlayers(), DynamicEffect.ASHE_DYNAMITE_EXPLOSION_SOUND, Color.TEAM_1, attacker, 70 if eventPlayer == localPlayer else 200)
-        smallMessage(getAllPlayers().exclude(attacker), "    {0}  {1} is on fire!  {0}".format(abilityIconString(Hero.TORBJORN, Button.ULTIMATE), attacker))
+        smallMessage(
+            getAllPlayers().exclude(attacker),
+            "    {0}  {1}  {0}".format(
+                abilityIconString(Hero.TORBJORN, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "{0} is on fire!".format(attacker),
+                    Language.SPANISH: "{0} está en llamas!".format(attacker),
+                })
+            )
+        )
     elif attacker.KillStreak >= RAMPAGE_STREAK and attacker.isAlive() and not attacker.IsOnRampage:
         attacker.IsOnRampage = true
         attacker.MedalQueue.append(Medal.RAMPAGE)
         attacker.RampageSFX = true
         attacker.startForcingOutlineFor(getAllPlayers(), true, Color.YELLOW, OutlineVisibility.DEFAULT)
-        bigMessage(getAllPlayers().exclude(attacker), "{0}  {1} is on a rampage!  {0}".format(abilityIconString(Hero.REAPER, Button.ULTIMATE), attacker))
+        bigMessage(
+            getAllPlayers().exclude(attacker),
+            "{0}  {1}  {0}".format(
+                abilityIconString(Hero.REAPER, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "{0} is on a rampage!".format(attacker),
+                    Language.SPANISH: "{0} está arrasando!".format(attacker)
+                })
+            )
+        )
         attacker.RampageVFX = true
         wait(1)
         attacker.RampageVFX = false
@@ -93,8 +117,36 @@ rule "Killstreak effects & announcements":
         attacker.IsNuclear = true
         attacker.MedalQueue.append(Medal.NUCLEAR)
         playEffect(getAllPlayers(), DynamicEffect.ANA_BIOTIC_GRENAGE_NO_HEALING_SOUND, Color.WHITE, attacker, 200)
-        createInWorldText(attacker, "    {0} Nuclear killstreak! {0}\nPress [{1}] to request Nano-nuke".format(iconString(Icon.RADIOACTIVE), buttonString(Button.ULTIMATE)), updateEveryTick(localPlayer.getEyePosition() + (100 * (0 * worldVector(Vector.RIGHT, localPlayer, Transform.ROTATION) + ((0.69 - 0.2) * (angleToDirection(horizontalAngleOfDirection(localPlayer.getFacingDirection()), verticalAngleOfDirection(localPlayer.getFacingDirection()) - 90))) + 3 * localPlayer.getFacingDirection()))), 9, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR, rgb(rainbow(getTotalTimeElapsed() * 500)), SpecVisibility.DEFAULT)
-        bigMessage(getAllPlayers().exclude(attacker), "{0}  {1} got a Nuclear killstreak!  {0}".format(iconString(Icon.RADIOACTIVE), attacker))
+        createInWorldText(
+            attacker,
+            "    {0} {1} {0}\n{2}".format(
+                iconString(Icon.RADIOACTIVE),
+                translate({
+                    Language.ENGLISH: "Nuclear killstreak!",
+                    Language.SPANISH: "Racha de asesinatos nuclear!",
+                }),
+                translate({
+                    Language.ENGLISH: "Press [{0}] to request Nano-nuke".format(buttonString(Button.ULTIMATE)),
+                    Language.SPANISH: "Presiona [{0}] para pedír una Nano-bomba nuclear".format(buttonString(Button.ULTIMATE))
+                })
+            ),
+            updateEveryTick(localPlayer.getEyePosition() + (100 * (0 * worldVector(Vector.RIGHT, localPlayer, Transform.ROTATION) + ((0.69 - 0.2) * (angleToDirection(horizontalAngleOfDirection(localPlayer.getFacingDirection()), verticalAngleOfDirection(localPlayer.getFacingDirection()) - 90))) + 3 * localPlayer.getFacingDirection()))),
+            9,
+            Clip.NONE,
+            WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR,
+            rgb(rainbow(getTotalTimeElapsed() * 500)),
+            SpecVisibility.DEFAULT
+        )
+        bigMessage(
+            getAllPlayers().exclude(attacker),
+            "{0}  {1}  {0}".format(
+                iconString(Icon.RADIOACTIVE),
+                translate({
+                    Language.ENGLISH: "{0} got a Nuclear killstreak!".format(attacker),
+                    Language.SPANISH: "{0} obtuvo una racha de asesinatos Nuclear!".format(attacker)
+                })
+            )
+        )
 
 
 rule "Killstreak shutdown announcements":
@@ -109,11 +161,29 @@ rule "Killstreak shutdown announcements":
     if victim.KillStreak < RAMPAGE_STREAK:
         attacker.MedalQueue.append(Medal.ON_FIRE_SHUTDOWN)
         attacker.communicate(Comms.GOODBYE)
-        smallMessage(getAllPlayers().exclude([victim, attacker]), "    {0}  {1}'s {2} killstreak ended".format(abilityIconString(Hero.TRACER, Button.ABILITY_2), victim, victim.KillStreak))
+        smallMessage(
+            getAllPlayers().exclude([victim, attacker]),
+            "    {0}  {1}".format(
+                abilityIconString(Hero.TRACER, Button.ABILITY_2),
+                translate({
+                    Language.ENGLISH: "{0}'s {1} killstreak ended".format(victim, victim.KillStreak),
+                    Language.SPANISH: "Se ha terminado la racha de {1} asesinatos de {0}".format(victim, victim.KillStreak)
+                })
+            )
+        )
 
     elif victim.KillStreak < NUCLEAR_STREAK:
         attacker.MedalQueue.append(Medal.RAMPAGE_SHUTDOWN)
-        smallMessage(getAllPlayers().exclude([victim, attacker]), "    {0}  {1}'s {2} kills rampage ended".format(abilityIconString(Hero.TRACER, Button.ABILITY_2), victim, victim.KillStreak))
+        smallMessage(
+            getAllPlayers().exclude([victim, attacker]),
+            "    {0}  {1}".format(
+                abilityIconString(Hero.TRACER, Button.ABILITY_2),
+                translate({
+                    Language.ENGLISH: "{0}'s {1} kills rampage ended".format(victim, victim.KillStreak),
+                    Language.SPANISH: "Se ha terminado la arrasada de {1} asesinatos de {0}".format(victim, victim.KillStreak)
+                })
+            )
+        )
         attacker.communicate(Comms.GOODBYE)
 
     for i in range(getNumberOfPlayers(Team.ALL) - 1):
@@ -139,20 +209,98 @@ rule "Environement death":
     # wait(CUSTOM_RESPAWN_TIME)
     eventPlayer.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(eventPlayer.MedalQueue)
     smallMessage(eventPlayer, random.choice([
-        "    {}  no wings?".format(heroIcon(random.choice([Hero.ECHO, Hero.MERCY]))),
-        "    {}  no jetpacks?".format(heroIcon(random.choice([Hero.PHARAH, Hero.WINSTON]))),
-        "    {}  no translocators?".format(heroIcon(Hero.SOMBRA)),
-        "    {}  no grapples?".format(heroIcon(random.choice([Hero.HAMMOND, Hero.WIDOWMAKER]))),
-        "    {}  no teleports?".format(heroIcon(Hero.KIRIKO)),
-        "    {}  no recalls?".format(heroIcon(Hero.TRACER)),
-        "    {}  no wallrides?".format(heroIcon(Hero.LUCIO)),
-        "    {}  no slams?".format(heroIcon(Hero.DOOMFIST)),
-        "    {}  no mekas?".format(heroIcon(Hero.DVA)),
-        "    {}  no double jumps?".format(heroIcon(Hero.GENJI)),
-        "    {}  no wallclimbs?".format(heroIcon(random.choice([Hero.GENJI, Hero.HANZO, Hero.KIRIKO]))),
-        "    {}  no life grips?".format(heroIcon(Hero.LIFEWEAVER)),
-        "    {}  no rocket legs?".format(heroIcon(Hero.SOJOURN)),
-        ]))
+        "    {0}  {1}".format(
+            heroIcon(random.choice([Hero.ECHO, Hero.MERCY])),
+            translate({
+                Language.ENGLISH: "no wings?",
+                Language.SPANISH: "sin alas?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(random.choice([Hero.PHARAH, Hero.WINSTON])),
+            translate({
+                Language.ENGLISH: "no jetpacks?",
+                Language.SPANISH: "sin propulsor aéreo?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(Hero.SOMBRA),
+            translate({
+                Language.ENGLISH: "no translocators?",
+                Language.SPANISH: "sin translocalizador?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(random.choice([Hero.HAMMOND, Hero.WIDOWMAKER])),
+            translate({
+                Language.ENGLISH: "no grapples?",
+                Language.SPANISH: "sin grapa?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(Hero.KIRIKO),
+            translate({
+                Language.ENGLISH: "no teleports?",
+                Language.SPANISH: "sin teletransporaciones?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(Hero.TRACER),
+            translate({
+                Language.ENGLISH: "no recalls?",
+                Language.SPANISH: "sin regresiones?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(Hero.LUCIO),
+            translate({
+                Language.ENGLISH: "no wallrides?",
+                Language.SPANISH: "sin caminamuros?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(Hero.DOOMFIST),
+            translate({
+                Language.ENGLISH: "no slams?",
+                Language.SPANISH: "sin embates sísmicos?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(Hero.DVA),
+            translate({
+                Language.ENGLISH: "no mekas?",
+                Language.SPANISH: "sin armaduras robóticas?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(Hero.GENJI),
+            translate({
+                Language.ENGLISH: "no double jumps?",
+                Language.SPANISH: "sin saltos dobles?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(random.choice([Hero.GENJI, Hero.HANZO, Hero.KIRIKO])),
+            translate({
+                Language.ENGLISH: "no wallclimbs?",
+                Language.SPANISH: "sin trepamuros?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(Hero.LIFEWEAVER),
+            translate({
+                Language.ENGLISH: "no life grips?",
+                Language.SPANISH: "sin agarre salvavidas?"
+            })
+        ),
+        "    {0}  {1}".format(
+            heroIcon(Hero.SOJOURN),
+            translate({
+                Language.ENGLISH: "no rocket legs?",
+                Language.SPANISH: "sin piernas propulsoras?"
+            })
+        ),
+    ]))
 
 
 rule "Longshot":
@@ -167,7 +315,19 @@ rule "Longshot":
     attacker.MedalQueue.append(Medal.LONGSHOT)
     attacker.LongshotCount += 1
     attacker.OofDistance = distance(attacker, victim)
-    createInWorldText(getAllPlayers(), random.choice(["oof", "ouch", "damn", "owie", "bonk"]), victim, 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR, rgb(rainbow(getTotalTimeElapsed() * 150)), SpecVisibility.NEVER)
+    createInWorldText(
+        getAllPlayers(),
+        translate({
+            Language.ENGLISH: random.choice(["oof", "ouch", "damn", "owie", "bonk"]),
+            Language.SPANISH: random.choice(["uff", "auch", "caray", "ay", "clonc"])
+        }),
+        victim,
+        1,
+        Clip.SURFACES,
+        WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR,
+        rgb(rainbow(getTotalTimeElapsed() * 150)),
+        SpecVisibility.NEVER
+    )
     victim.OofText = getLastCreatedText()
     if attacker.OofDistance > attacker.LongestLongshot:
         attacker.LongestLongshot = distance(attacker, victim)
@@ -211,7 +371,7 @@ rule "MEDALS":
                 heroIcon(Hero.ANA),
                 translate({
                     Language.ENGLISH: "{0} said: '{1}'".format(eventPlayer.HonorQueue[0], random.choice(["Nice one!", "Sheeeesh", "Damn!", "Wow", "Oof", "Clean", "{0}{0}{0}".format(iconString(Icon.FIRE))])),
-                    Language.SPANISH: "{0} dijo: '{1}'".format(eventPlayer.HonorQueue[0], random.choice(["Muy buena!", "Fuaaaaa", "Caray!", "Wow", "Oof", "Impecable", "{0}{0}{0}".format(iconString(Icon.FIRE))]))
+                    Language.SPANISH: "{0} dijo: '{1}'".format(eventPlayer.HonorQueue[0], random.choice(["Muy buena!", "Fuaaaaa", "Caray!", "Wow", "Uff", "Impecable", "{0}{0}{0}".format(iconString(Icon.FIRE))]))
                 })
             ),
             Medal.EXECUTED:           "    {0}{1}  {2}".format(
@@ -289,7 +449,7 @@ rule "MEDALS":
                 abilityIconString(Hero.TORBJORN, Button.ULTIMATE),
                 translate({
                     Language.ENGLISH: "On fire",
-                    Language.SPANISH: "En fuego"
+                    Language.SPANISH: "En llamas"
                 })
             ),
             Medal.ON_FIRE_SHUTDOWN:   "    {0}  {1}".format(
