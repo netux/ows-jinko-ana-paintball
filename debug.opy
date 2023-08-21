@@ -211,4 +211,10 @@ rule "Print vectors":
     smallMessage(eventPlayer, "    {} printed log".format(iconString(Icon.CHECKMARK)))
 
 
+rule "debug translations":
+    @Condition DEBUG_MODE
+    @Event eachPlayer
+    @Condition eventPlayer.hasSpawned()
+
+    smallMessage(eventPlayer, translate("You are using English", "Tu estás usando Español"))
 
