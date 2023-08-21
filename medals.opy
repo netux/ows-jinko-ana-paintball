@@ -110,7 +110,7 @@ rule "Killstreak shutdown announcements":
         attacker.MedalQueue.append(Medal.ON_FIRE_SHUTDOWN)
         attacker.communicate(Comms.GOODBYE)
         smallMessage(getAllPlayers().exclude([victim, attacker]), "    {0}  {1}'s {2} killstreak ended".format(abilityIconString(Hero.TRACER, Button.ABILITY_2), victim, victim.KillStreak))
-    
+
     elif victim.KillStreak < NUCLEAR_STREAK:
         attacker.MedalQueue.append(Medal.RAMPAGE_SHUTDOWN)
         smallMessage(getAllPlayers().exclude([victim, attacker]), "    {0}  {1}'s {2} kills rampage ended".format(abilityIconString(Hero.TRACER, Button.ABILITY_2), victim, victim.KillStreak))
@@ -207,38 +207,234 @@ rule "MEDALS":
     eventPlayer.DisplayMedal = eventPlayer.MedalQueue[0]
     if eventPlayer.DisplayMedal != Medal.SYSTEM_MESSAGE:
         smallMessage(eventPlayer, {
-            Medal.HONOR:              "    {0}  {1} said: '{2}'".format(heroIcon(Hero.ANA), eventPlayer.HonorQueue[0], random.choice(["Nice one!", "Sheeeesh", "Damn!", "Wow", "Oof", "Clean", "{0}{0}{0}".format(iconString(Icon.FIRE))])),
-            Medal.EXECUTED:           "    {0}{1}  Execution! Max ammo".format(abilityIconString(Hero.ANA, Button.MELEE), iconString(Icon.RECYCLE)),
-            Medal.PERFECT_QS:         "    {0}  Perfect quickscope".format(abilityIconString(Hero.KIRIKO, Button.JUMP)),
-            Medal.DEMOTION:           "    {0}  Demotion! {1} lost a point".format(abilityIconString(Hero.HAMMOND, Button.CROUCH), eventPlayer.DemotionVictim),
-            Medal.STOLEN_KILL:        "    {0}  Stole {1}'s kill".format(abilityIconString(Hero.ROADHOG, Button.ABILITY_1), eventPlayer.StolenFrom),
-            Medal.COMEBACK:           "    {0}  Comeback".format(abilityIconString(Hero.MERCY, Button.ULTIMATE)),
-            Medal.FIRST_BLOOD:        "    {0}  First blood".format(abilityIconString(Hero.BRIGITTE, Button.ULTIMATE)),
-            Medal.FIRST_SLEEP:        "    {0}  First sleep".format(abilityIconString(Hero.BRIGITTE, Button.ULTIMATE)),
-            Medal.LONGSHOT:           "    {0}  Longshot! {1}m".format(heroIcon(Hero.WIDOWMAKER), OofString(eventPlayer.OofDistance)),
-            Medal.NANOPUNCH:          "    {0}  Nanopunch".format(abilityIconString(Hero.RAMATTRA, Button.ABILITY_1)),
-            Medal.ENV_KILL:           "    {0}  Environment kill".format(abilityIconString(Hero.SIGMA, Button.ULTIMATE)),
-            Medal.ON_FIRE:            "    {0}  On fire".format(abilityIconString(Hero.TORBJORN, Button.ULTIMATE)),
-            Medal.ON_FIRE_SHUTDOWN:   "    {0}  Ended {1}'s {2} Kills streak".format(abilityIconString(Hero.TRACER, Button.ABILITY_2), eventPlayer.ShutdownVictim, eventPlayer.ShutdownVictim.KillStreakBeforeDeath),
-            Medal.RAMPAGE:            "    {0}  {1}".format(abilityIconString(Hero.REAPER, Button.ULTIMATE), random.choice(["You are on a rampage!", "Rampage!"])),
-            Medal.RAMPAGE_SHUTDOWN:   "    {0}  Ended {1}'s {2} kills rampage".format(abilityIconString(Hero.TRACER, Button.ABILITY_2), eventPlayer.ShutdownVictim, eventPlayer.ShutdownVictim.KillStreakBeforeDeath),
-            Medal.NUCLEAR:            "    {0}  Nuclear".format(iconString(Icon.RADIOACTIVE)),
-            Medal.COUNTERMEASURE:     "    {0}{1}  Countermeasure".format(iconString(Icon.NO), iconString(Icon.RADIOACTIVE)),
-            Medal.CATASTROPHE:        "    {0}  Catastrophe".format(abilityIconString(Hero.BASTION, Button.ULTIMATE)),
-            Medal.BUZZKILL:           "    {0}  Buzzkill".format(abilityIconString(Hero.DOOMFIST, Button.ABILITY_1)),
-            Medal.SHOWSTOPPER:        "    {0}  Showstopper".format(iconString(Icon.STOP)),
-            Medal.QUADFEED:           "    {0}  Quadfeed".format(abilityIconString(Hero.JUNKER_QUEEN, Button.ULTIMATE)),
-            Medal.JOLLY_JUMPER:       "    {0}  Jolly jumper".format(abilityIconString(Hero.BAPTISTE, Button.CROUCH)),
-            Medal.COLLATERAL_KILLS:   "    {0}  Collateral kills".format(abilityIconString(Hero.ZARYA, Button.ABILITY_2)),
-            Medal.MUTUAL_SLEEP:       "    {0}  Mutual sleep, awaking...".format(abilityIconString(Hero.MERCY, Button.ABILITY_2)),
-            Medal.LAST_BULLET:        "    {0}  Decisive shot".format(iconString(Icon.CLUB)),
-            Medal.DREAMCATCHER:       "    {0}  Dreamcatcher".format(abilityIconString(Hero.RAMATTRA, Button.ABILITY_2)),
-            Medal.NO_SCOPE_NEEDED:    "    {0}  No scope needed".format(abilityIconString(Hero.SOJOURN, Button.ULTIMATE)),
-            Medal.DEADEYE:            "    {0}  Deadeye".format(abilityIconString(Hero.MCCREE, Button.ULTIMATE)),
-            Medal.SLEEP_SNIPER:       "    {0}  Sleep sniper".format(abilityIconString(Hero.ORISA, Button.SECONDARY_FIRE)),
-            Medal.SANDMAN:            "    {0}{1}  Sandman".format(abilityIconString(Hero.ANA, Button.ABILITY_1), abilityIconString(Hero.ECHO, Button.ULTIMATE)),
-            Medal.PUNCH_DRUNK:        "    {0}{1}  Punch drunk".format(abilityIconString(Hero.ANA, Button.MELEE), iconString(Icon.DIZZY)),
-            Medal.FROM_THE_GRAVE:     "    {0}  From the grave".format(abilityIconString(Hero.REAPER, Button.ULTIMATE)),
+            Medal.HONOR:              "    {0}  {1}".format(
+                heroIcon(Hero.ANA),
+                translate({
+                    Language.ENGLISH: "{0} said: '{1}'".format(eventPlayer.HonorQueue[0], random.choice(["Nice one!", "Sheeeesh", "Damn!", "Wow", "Oof", "Clean", "{0}{0}{0}".format(iconString(Icon.FIRE))])),
+                    Language.SPANISH: "{0} dijo: '{1}'".format(eventPlayer.HonorQueue[0], random.choice(["Muy buena!", "Fuaaaaa", "Caray!", "Wow", "Oof", "Impecable", "{0}{0}{0}".format(iconString(Icon.FIRE))]))
+                })
+            ),
+            Medal.EXECUTED:           "    {0}{1}  {2}".format(
+                abilityIconString(Hero.ANA, Button.MELEE),
+                iconString(Icon.RECYCLE),
+                translate({
+                    Language.ENGLISH: "Execution! Max ammo",
+                    Language.SPANISH: "Ejecución! Munición restaurada"
+                })
+            ),
+            Medal.PERFECT_QS:         "    {0}  {1}".format(
+                abilityIconString(Hero.KIRIKO, Button.JUMP),
+                translate({
+                    Language.ENGLISH: "Perfect quickscope",
+                    Language.SPANISH: "Mira fantasma"
+                })
+            ),
+            Medal.DEMOTION:           "    {0}  {1}".format(
+                abilityIconString(Hero.HAMMOND, Button.CROUCH),
+                translate({
+                    Language.ENGLISH: "Demotion! {0} lost a point".format(eventPlayer.DemotionVictim),
+                    Language.SPANISH: "Degradación! {0} perdió un punto".format(eventPlayer.DemotionVictim),
+                })
+            ),
+            Medal.STOLEN_KILL:        "    {0}  {1}".format(
+                abilityIconString(Hero.ROADHOG, Button.ABILITY_1),
+                translate({
+                    Language.ENGLISH: "Stole {0}'s kill".format(eventPlayer.StolenFrom),
+                    Language.SPANISH: "Te robaste la presa de {0}".format(eventPlayer.StolenFrom),
+                })
+            ),
+            Medal.COMEBACK:           "    {0}  {1}".format(
+                abilityIconString(Hero.MERCY, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "Comeback",
+                    Language.SPANISH: "Remontada"
+                })
+            ),
+            Medal.FIRST_BLOOD:        "    {0}  {1}".format(
+                abilityIconString(Hero.BRIGITTE, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "First blood",
+                    Language.SPANISH: "Primera sangre"
+                })
+            ),
+            Medal.FIRST_SLEEP:        "    {0}  {1}".format(
+                abilityIconString(Hero.BRIGITTE, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "First sleep",
+                    Language.SPANISH: "Primera puesta a dormir"
+                })
+            ),
+            Medal.LONGSHOT:           "    {0}  {1}".format(
+                heroIcon(Hero.WIDOWMAKER),
+                translate({
+                    Language.ENGLISH: "Longshot! {0}m".format(OofString(eventPlayer.OofDistance)),
+                    Language.SPANISH: "A larga distancia! {0}m".format(OofString(eventPlayer.OofDistance)),
+                })
+            ),
+            Medal.NANOPUNCH:          "    {0}  {1}".format(
+                abilityIconString(Hero.RAMATTRA, Button.ABILITY_1),
+                translate({
+                    Language.ENGLISH: "Nanopunch",
+                    Language.SPANISH: "Nanopiña"
+                })
+            ),
+            Medal.ENV_KILL:           "    {0}  {1}".format(
+                abilityIconString(Hero.SIGMA, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "Environment kill",
+                    Language.SPANISH: "Asesinato del ambiente"
+                })
+            ),
+            Medal.ON_FIRE:            "    {0}  {1}".format(
+                abilityIconString(Hero.TORBJORN, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "On fire",
+                    Language.SPANISH: "En fuego"
+                })
+            ),
+            Medal.ON_FIRE_SHUTDOWN:   "    {0}  {1}".format(
+                abilityIconString(Hero.TRACER, Button.ABILITY_2),
+                translate({
+                    Language.ENGLISH: "Ended {0}'s {1} Kills streak".format(eventPlayer.ShutdownVictim, eventPlayer.ShutdownVictim.KillStreakBeforeDeath),
+                    Language.SPANISH: "Terminaste la racha de {1} asesinatos de {0}".format(eventPlayer.ShutdownVictim, eventPlayer.ShutdownVictim.KillStreakBeforeDeath)
+                })
+            ),
+            Medal.RAMPAGE:            "    {0}  {1}".format(
+                abilityIconString(Hero.REAPER, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: random.choice(["You are on a rampage!", "Rampage!"]),
+                    Language.SPANISH: random.choice(["Estás arrasando!", "Arrasada!"])
+                })
+            ),
+            Medal.RAMPAGE_SHUTDOWN:   "    {0}  {1}".format(
+                abilityIconString(Hero.TRACER, Button.ABILITY_2),
+                translate({
+                    Language.ENGLISH: "Ended {0}'s {1} kills rampage".format(eventPlayer.ShutdownVictim, eventPlayer.ShutdownVictim.KillStreakBeforeDeath),
+                    Language.SPANISH: "Terminaste la arrasada de {1} asesinatos de {0}".format(eventPlayer.ShutdownVictim, eventPlayer.ShutdownVictim.KillStreakBeforeDeath)
+                })
+            ),
+            Medal.NUCLEAR:            "    {0}  {1}".format(
+                iconString(Icon.RADIOACTIVE),
+                translate({
+                    Language.ENGLISH: "Nuclear",
+                    Language.SPANISH: "Nuclear"
+                })
+            ),
+            Medal.COUNTERMEASURE:     "    {0}{1}  {2}".format(
+                iconString(Icon.NO),
+                iconString(Icon.RADIOACTIVE),
+                translate({
+                    Language.ENGLISH: "Countermeasure",
+                    Language.SPANISH: "Contramedida"
+                })
+            ),
+            Medal.CATASTROPHE:        "    {0}  {1}".format(
+                abilityIconString(Hero.BASTION, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "Catastrophe",
+                    Language.SPANISH: "Catastrofe"
+                })
+            ),
+            Medal.BUZZKILL:           "    {0}  {1}".format(
+                abilityIconString(Hero.DOOMFIST, Button.ABILITY_1),
+                translate({
+                    Language.ENGLISH: "Buzzkill",
+                    Language.SPANISH: "Aguafiestas"
+                })
+            ),
+            Medal.SHOWSTOPPER:        "    {0}  {1}".format(
+                iconString(Icon.STOP),
+                translate({
+                    Language.ENGLISH: "Showstopper",
+                    Language.SPANISH: "Se terminó el show"
+                })
+            ),
+            Medal.QUADFEED:           "    {0}  {1}".format(
+                abilityIconString(Hero.JUNKER_QUEEN, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "Quadfeed",
+                    Language.SPANISH: "Llenando el historial"
+                })
+            ),
+            Medal.JOLLY_JUMPER:       "    {0}  {1}".format(
+                abilityIconString(Hero.BAPTISTE, Button.CROUCH),
+                translate({
+                    Language.ENGLISH: "Jolly jumper",
+                    Language.SPANISH: "Saltador felíz"
+                })
+            ),
+            Medal.COLLATERAL_KILLS:   "    {0}  {1}".format(
+                abilityIconString(Hero.ZARYA, Button.ABILITY_2),
+                translate({
+                    Language.ENGLISH: "Collateral kills",
+                    Language.SPANISH: "Asesinatos colaterales"
+                })
+            ),
+            Medal.MUTUAL_SLEEP:       "    {0}  {1}".format(
+                abilityIconString(Hero.MERCY, Button.ABILITY_2),
+                translate({
+                    Language.ENGLISH: "Mutual sleep, awaking...",
+                    Language.SPANISH: "Dormida mutua, despertandose..."
+                })
+            ),
+            Medal.LAST_BULLET:        "    {0}  {1}".format(
+                iconString(Icon.CLUB),
+                translate({
+                    Language.ENGLISH: "Decisive shot",
+                    Language.SPANISH: "Tiro decisivo"
+                })
+            ),
+            Medal.DREAMCATCHER:       "    {0}  {1}".format(
+                abilityIconString(Hero.RAMATTRA, Button.ABILITY_2),
+                translate({
+                    Language.ENGLISH: "Dreamcatcher",
+                    Language.SPANISH: "Atrapasueños"
+                })
+            ),
+            Medal.NO_SCOPE_NEEDED:    "    {0}  {1}".format(
+                abilityIconString(Hero.SOJOURN, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "No scope needed",
+                    Language.SPANISH: "Sin mira"
+                })
+            ),
+            Medal.DEADEYE:            "    {0}  {1}".format(
+                abilityIconString(Hero.MCCREE, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "Deadeye",
+                    Language.SPANISH: "Ojo muerto"
+                })
+            ),
+            Medal.SLEEP_SNIPER:       "    {0}  {1}".format(
+                abilityIconString(Hero.ORISA, Button.SECONDARY_FIRE),
+                translate({
+                    Language.ENGLISH: "Sleep sniper",
+                    Language.SPANISH: "Francotirador de dardos"
+                })
+            ),
+            Medal.SANDMAN:            "    {0}{1}  {2}".format(
+                abilityIconString(Hero.ANA, Button.ABILITY_1),
+                abilityIconString(Hero.ECHO, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "Sandman",
+                    Language.SPANISH: "Sr. Arena"
+                })
+            ),
+            Medal.PUNCH_DRUNK:        "    {0}{1}  {2}".format(
+                abilityIconString(Hero.ANA, Button.MELEE),
+                iconString(Icon.DIZZY),
+                translate({
+                    Language.ENGLISH: "Punch drunk",
+                    Language.SPANISH: "Lleno de puños"
+                })
+            ),
+            Medal.FROM_THE_GRAVE:     "    {0}  {1}".format(
+                abilityIconString(Hero.REAPER, Button.ULTIMATE),
+                translate({
+                    Language.ENGLISH: "From the grave",
+                    Language.SPANISH: "Desde la tumba"
+                })
+            ),
 
             }[eventPlayer.DisplayMedal])
         if DEBUG_MODE:
