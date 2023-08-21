@@ -258,7 +258,7 @@ rule "PLAYER HUDs":
         "{0}: {1}{2}          ".format(
             translate({
                 Language.ENGLISH: "Perfect Quickscopes",
-                Language.SPANISH: "Miras-fantasma perfectas"
+                Language.SPANISH: "Miras fantasma"
             }),
             localPlayer.PerfectQuickscopes,
             emptySpace
