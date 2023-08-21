@@ -17,7 +17,22 @@ rule "Nuclear victory":
 
     destroyAllInWorldTexts()
     destroyAllHudTexts()
-    createInWorldText(Winner, "{0} Nano-nuke requested! {0}".format(iconString(Icon.WARNING)), updateEveryTick(localPlayer.getEyePosition() + (100 * (0 * worldVector(Vector.RIGHT, localPlayer, Transform.ROTATION) + ((0.69 - 0.2) * (angleToDirection(horizontalAngleOfDirection(localPlayer.getFacingDirection()), verticalAngleOfDirection(localPlayer.getFacingDirection()) - 90))) + 3 * localPlayer.getFacingDirection()))), 3, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR, rgb(rainbow(getTotalTimeElapsed() * 500)), SpecVisibility.DEFAULT)
+    createInWorldText(
+        Winner,
+        "{0} {1} {0}".format(
+            iconString(Icon.WARNING),
+            translate({
+                Language.ENGLISH: "Nano-nuke requested!",
+                Language.SPANISH: "Nano-bomba nuclear pedida!"
+            })
+        ),
+        updateEveryTick(localPlayer.getEyePosition() + (100 * (0 * worldVector(Vector.RIGHT, localPlayer, Transform.ROTATION) + ((0.69 - 0.2) * (angleToDirection(horizontalAngleOfDirection(localPlayer.getFacingDirection()), verticalAngleOfDirection(localPlayer.getFacingDirection()) - 90))) + 3 * localPlayer.getFacingDirection()))),
+        3,
+        Clip.NONE,
+        WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR,
+        rgb(rainbow(getTotalTimeElapsed() * 500)),
+        SpecVisibility.DEFAULT
+    )
     getAllPlayers().disableGamemodeHud()
     getAllPlayers().disableHeroHUD()
     getAllPlayers().setStatusEffect(null, Status.PHASED_OUT, 69)
@@ -108,8 +123,32 @@ rule "Nuclear victory":
     createEffect(getAllPlayers(), Effect.CLOUD, Color.ORANGE, NukeImpactPos, NukeExplodeFxPos, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
     chase(NukeExplodeFxPos, 220, rate=20, ChaseReeval.DESTINATION_AND_RATE)
 
-    createInWorldText(getAllPlayers(),"Nuclear victory!", WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, 0.8), 10, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR, rgb(rainbow(getTotalTimeElapsed() * 500)), SpecVisibility.NEVER)
-    createInWorldText(getAllPlayers(),"join the discord server!\n        jinko.dev/discord", WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, -1), 10, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR, rgb(rainbow(getTotalTimeElapsed() * 500)), SpecVisibility.NEVER)
+    createInWorldText(
+        getAllPlayers(),
+        translate({
+            Language.ENGLISH: "Nuclear victory!",
+            Language.SPANISH: "Victoria nuclear!"
+        }),
+        WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, 0.8),
+        10,
+        Clip.NONE,
+        WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR,
+        rgb(rainbow(getTotalTimeElapsed() * 500)),
+        SpecVisibility.NEVER
+    )
+    createInWorldText(
+        getAllPlayers(),
+        "{0}\n        jinko.dev/discord".format(translate({
+            Language.ENGLISH: "join the discord server!",
+            Language.SPANISH: "unite al servidor de discord! (solo en ingles)"
+        })),
+        WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, -1),
+        10,
+        Clip.NONE,
+        WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR,
+        rgb(rainbow(getTotalTimeElapsed() * 500)),
+        SpecVisibility.NEVER
+    )
 
     # camera shake
     wait(0.3)
@@ -172,8 +211,36 @@ rule "Sleep Dart victory":
     getAllPlayers().startCamera(raycast(victim.getEyePosition(), victim.getEyePosition() + directionTowards(attacker, victim()) * -2 + Vector.UP * 0.5, null, null, true).getHitPosition(), victim.getEyePosition() + vect(0, -1, 0), 25)
     wait(0.5)
     #Amazing in-world text code by josbird https://workshop.codes/wiki/articles/rendering-an-inworld-text-at-a-specific-onscreen-position
-    createInWorldText(getAllPlayers(),"longshot victory! {0}m hit!".format(OofString(victim.OofDistance)) if victim.OofDistance >= LONGSHOT_DISTANCE else "{0}m sleep dart hit!".format(OofString(victim.OofDistance)), WinCamTextPosition(raycast(victim.getEyePosition(), victim.getEyePosition() + directionTowards(attacker, victim) * -2 + Vector.UP * 0.5, null, null, true).getHitPosition(), victim.getEyePosition() + vect(0, -1, 0), 0, 0.8), 10, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR, rgb(rainbow(getTotalTimeElapsed() * 500)) if victim.OofDistance >= LONGSHOT_DISTANCE else customGreen, SpecVisibility.NEVER)
-    createInWorldText(getAllPlayers(),"join the discord server!\n        jinko.dev/discord", WinCamTextPosition(raycast(victim.getEyePosition(), victim.getEyePosition() + directionTowards(attacker, victim) * -2 + Vector.UP * 0.5, null, null, true).getHitPosition(), victim.getEyePosition() + vect(0, -1, 0), 0, -0.8), 10, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR, rgb(rainbow(getTotalTimeElapsed() * 500)), SpecVisibility.NEVER)
+    createInWorldText(
+        getAllPlayers(),
+        translate({
+            Language.ENGLISH: "longshot victory! {0}m hit!".format(OofString(victim.OofDistance)),
+            Language.SPANISH: "victoria con tiro a larga distancia! Acierto en {0}m!".format(OofString(victim.OofDistance))
+        }) if victim.OofDistance >= LONGSHOT_DISTANCE
+        else translate({
+            Language.ENGLISH: "{0}m sleep dart hit!".format(OofString(victim.OofDistance)),
+            Language.SPANISH: "dardo tranquilizante acertado a {0}m!".format(OofString(victim.OofDistance))
+        }),
+        WinCamTextPosition(raycast(victim.getEyePosition(), victim.getEyePosition() + directionTowards(attacker, victim) * -2 + Vector.UP * 0.5, null, null, true).getHitPosition(), victim.getEyePosition() + vect(0, -1, 0), 0, 0.8),
+        10,
+        Clip.NONE,
+        WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR,
+        rgb(rainbow(getTotalTimeElapsed() * 500)) if victim.OofDistance >= LONGSHOT_DISTANCE else customGreen,
+        SpecVisibility.NEVER
+    )
+    createInWorldText(
+        getAllPlayers(),
+        "{0}\n        jinko.dev/discord".format(translate({
+            Language.ENGLISH: "join the discord server!",
+            Language.SPANISH: "unite al servidor de discord! (solo en ingles)"
+        })),
+        WinCamTextPosition(raycast(victim.getEyePosition(), victim.getEyePosition() + directionTowards(attacker, victim) * -2 + Vector.UP * 0.5, null, null, true).getHitPosition(), victim.getEyePosition() + vect(0, -1, 0), 0, -0.8),
+        10,
+        Clip.NONE,
+        WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR,
+        rgb(rainbow(getTotalTimeElapsed() * 500)),
+        SpecVisibility.NEVER
+    )
     wait(0.95)
     playEffect(getAllPlayers(), DynamicEffect.DVA_SELF_DESTRUCT_EXPLOSION, Color.ROSE, victim.getPosition(), 999)
     wait(3 if DEBUG_MODE else 18.5)
@@ -187,6 +254,29 @@ rule "Fix camera if last victim leaves the game":
     if FinalVictim == eventPlayer:
         destroyAllInWorldTexts()
         getAllPlayers().startCamera(NukeCamPos, NukeImpactPos, 0)
-        createInWorldText(getAllPlayers(),"The last victim left the game lol", WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, 0.8), 10, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR, rgb(rainbow(getTotalTimeElapsed() * 500)), SpecVisibility.NEVER)
-        createInWorldText(getAllPlayers(),"join the discord server!\n        jinko.dev/discord", WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, -1), 10, Clip.NONE, WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR, rgb(rainbow(getTotalTimeElapsed() * 500)), SpecVisibility.NEVER)
-    
+        createInWorldText(
+            getAllPlayers(),
+            translate({
+                Language.ENGLISH: "The last victim left the game lol",
+                Language.SPANISH: "La última victima se fue del juego lol"
+            }),
+            WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, 0.8),
+            10,
+            Clip.NONE,
+            WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR,
+            rgb(rainbow(getTotalTimeElapsed() * 500)),
+            SpecVisibility.NEVER
+        )
+        createInWorldText(
+            getAllPlayers(),
+            "{0}\n        jinko.dev/discord".format(translate({
+                Language.ENGLISH: "join the discord server!",
+                Language.SPANISH: "unite al servidor de discord! (solo en ingles)"
+            })),
+            WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, -1),
+            10,
+            Clip.NONE,
+            WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR,
+            rgb(rainbow(getTotalTimeElapsed() * 500)),
+            SpecVisibility.NEVER
+        )
