@@ -217,6 +217,6 @@ rule "debug translations":
     @Condition eventPlayer.hasSpawned()
 
     smallMessage(eventPlayer, translate({
-        Language.ENGLISH: "You are using English",
-        Language.SPANISH: "Tu estás usando Español"
+        Language.ENGLISH: "    You are using English",
+        Language.SPANISH: "    Tu estás usando Español"
     }))
