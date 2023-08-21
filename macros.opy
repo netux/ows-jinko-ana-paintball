@@ -29,7 +29,7 @@
 #!define nextAIBot [player for player in getAllPlayers() if player.IsAIBot][0]
 #!define nextAIBotName "​ [ -C°▥°]-C Ana Bot #{}".format(getNumberOfAIBots(Team.ALL))
 
-#!define translate(english, spanish) [english, spanish][max(false, TranslationsMapping.index("{}".format(Map.PRACTICE_RANGE)))]
+#!define translate(strings) strings[max(false, TranslationsMapping.index("{}".format(Map.PRACTICE_RANGE)))]
 
 #!define customGreen (rgb(63, 191, 116))
 #!define rSaturation 0.55

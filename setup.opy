@@ -197,7 +197,7 @@ rule "PLAYER EFFECTS":
 rule "Translations":
     @Event global
 
-    TranslationsMapping = [
+    TranslationsMapping = [ # Same order as the Language enum
         "Practice Range",
         "Campo de pruebas"
     ]
