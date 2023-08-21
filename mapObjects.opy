@@ -63,8 +63,20 @@ rule "ECOPOINT trigger left side TP":
 rule "FOREST create TP":
     @Event global
     @Condition getCurrentMap() == Map.BLACK_FOREST_WINTER or getCurrentMap() == Map.BLACK_FOREST
-    
-    createInWorldText([localPlayer.IsPlayer and isInLoS(localPlayer.getEyePosition(), vect(-32, 13, 8), BarrierLos.BLOCKED_BY_ALL_BARRIERS) and angleBetweenVectors(localPlayer.getFacingDirection(), directionTowards(localPlayer.getEyePosition(), vect(-32, 13, 8))) < 15 and distance(vect(-32, 14.5, 8), localPlayer) <= 25], "teleporter", vect(-32, 17, 8), 2, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_AND_COLOR, Color.ROSE, SpecVisibility.NEVER)
+
+    createInWorldText(
+        [localPlayer.IsPlayer and isInLoS(localPlayer.getEyePosition(), vect(-32, 13, 8), BarrierLos.BLOCKED_BY_ALL_BARRIERS) and angleBetweenVectors(localPlayer.getFacingDirection(), directionTowards(localPlayer.getEyePosition(), vect(-32, 13, 8))) < 15 and distance(vect(-32, 14.5, 8), localPlayer) <= 25],
+        translate({
+            Language.ENGLISH: "teleporter",
+            Language.SPANISH: "teletransportador"
+        }),
+        vect(-32, 17, 8),
+        2,
+        Clip.SURFACES,
+        WorldTextReeval.VISIBILITY_POSITION_AND_COLOR,
+        Color.ROSE,
+        SpecVisibility.NEVER
+    )
     createEffect(getAllPlayers(), Effect.BAD_AURA, Color.ROSE, vect(-32, 13, 8), 3, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
     createEffect(getAllPlayers(), Effect.SPARKLES, Color.PURPLE, vect(-32, 13, 8), 3, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
     createEffect(getAllPlayers(), Effect.BEACON_SOUND, Color.BLUE, vect(-32, 13, 8), 100, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
@@ -74,7 +86,7 @@ rule "FOREST trigger TP":
     @Hero ana
     @Condition getCurrentMap() == Map.BLACK_FOREST_WINTER or getCurrentMap() == Map.BLACK_FOREST
     @Condition distance(eventPlayer, vect(-32, 13, 8)) <= 3
-    
+
     playEffect(getAllPlayers(), DynamicEffect.EXPLOSION_SOUND, Color.WHITE, vect(-32, 13, 8), 120)
     playEffect(getAllPlayers(), DynamicEffect.SOMBRA_TRANSLOCATOR_DISAPPEAR, Color.WHITE, vect(-32, 13, 8), 20)
     eventPlayer.L = 1.5

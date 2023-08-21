@@ -11,16 +11,49 @@ rule "Initial spawn point & message":
     RespawnSystem()
 
     wait(0.2)
-    smallMessage(eventPlayer, "    Mode by Jinko#2838")
+    smallMessage(
+        eventPlayer,
+        "    {0}".format(
+            translate({
+                Language.ENGLISH: "Mode by Jinko#2838",
+                Language.SPANISH: "Modo hecho por Jinko#2838"
+            })
+        )
+    )
     playEffect(eventPlayer, DynamicEffect.BRIGITTE_REPAIR_PACK_ARMOR_SOUND, Color.WHITE, eventPlayer, 200)
     wait(0.7)
 
     smallMessage(eventPlayer, random.choice([
-                                            "    {0}  Discord invite up there  {0}".format(iconString(Icon.ARROW_UP)),
-                                            "    {0}  TikTok: @Jinko_OW".format(iconString(Icon.HEART)),
-                                            "    {0}  Scoped shots pierce enemies!".format(abilityIconString(Hero.ZARYA, Button.ABILITY_2)),
-                                            "    {0}  Get a 15 kills streak for a BIG surprise!".format(iconString(Icon.RADIOACTIVE)),
-                                            "    {0}{1}  Try punching sleeping players!".format(abilityIconString(Hero.ANA, Button.MELEE), abilityIconString(Hero.ANA, Button.ABILITY_1)),
+        "    {0}  {1}  {0}".format(
+            iconString(Icon.ARROW_UP),
+            translate({
+                Language.ENGLISH: "Discord invite up there",
+                Language.SPANISH: "La invitación a Discord está ahí arriba"
+            })
+        ),
+        "    {0}  TikTok: @Jinko_OW".format(iconString(Icon.HEART)),
+        "    {0}  {1}".format(
+            abilityIconString(Hero.ZARYA, Button.ABILITY_2),
+            translate({
+                Language.ENGLISH: "Scoped shots pierce enemies!",
+                Language.SPANISH: "Los disparos con mira atraviesan a los enemigos!"
+            })
+        ),
+        "    {0}  {1}".format(
+            iconString(Icon.RADIOACTIVE),
+            translate({
+                Language.ENGLISH: "Get a 15 kills streak for a BIG surprise!",
+                Language.SPANISH: "Obtene una racha de 15 asesinatos para una GRAN sorpresa!"
+            })
+        ),
+        "    {0}{1}  {2}".format(
+            abilityIconString(Hero.ANA, Button.MELEE),
+            abilityIconString(Hero.ANA, Button.ABILITY_1),
+            translate({
+                Language.ENGLISH: "Try punching sleeping players!",
+                Language.SPANISH: "Proba usar tus puños en jugadores dormidos!"
+            })
+        ),
     ]))
 
     playEffect(eventPlayer, DynamicEffect.BRIGITTE_REPAIR_PACK_ARMOR_SOUND, Color.WHITE, eventPlayer, 200)

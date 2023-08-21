@@ -1,10 +1,10 @@
 #!mainFile "ANA_PB.opy"
 
-rule "When player dies, display honor HUD": 
+rule "When player dies, display honor HUD":
     @Event playerDied
     @Hero ana
     @Condition not eventWasEnvironment
-    
+
     victim.HonorTarget = attacker
     victim.HonorBar = 100
     chase(victim.HonorBar, 0, duration=CUSTOM_RESPAWN_TIME + 0.9, ChaseReeval.DESTINATION_AND_DURATION)
@@ -22,5 +22,14 @@ rule "Send honor message if GRENADE is pressed":
     eventPlayer.HonorBar = 0
 
     eventPlayer.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(eventPlayer.MedalQueue)
-    smallMessage(eventPlayer, "    {0}  honor sent to {1}!".format(iconString(Icon.HAPPY), eventPlayer.HonorTarget))
+    smallMessage(
+        eventPlayer,
+        "    {0}  {1}".format(
+            iconString(Icon.HAPPY),
+            translate({
+                Language.ENGLISH: "honor sent to {0}!".format(eventPlayer.HonorTarget),
+                Language.SPANISH: "honor enviado a {0}!".format(eventPlayer.HonorTarget)
+            })
+        )
+    )
     playEffect(eventPlayer, DynamicEffect.BRIGITTE_REPAIR_PACK_ARMOR_SOUND, Color.WHITE, eventPlayer, 200)

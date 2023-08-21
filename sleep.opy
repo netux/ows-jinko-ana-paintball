@@ -30,9 +30,27 @@ rule "If SleepLock = 2, execute attacker, wake victim, reset attacker SleepLock 
     kill(eventPlayer, eventPlayer)
     attacker.setScore(attacker.getScore() - 1)
     victim.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(victim.MedalQueue)
-    smallMessage(victim, "    {0}  Executed {1} for sleep-locking".format(abilityIconString(Hero.GENJI, Button.ABILITY_2), eventPlayer))
+    smallMessage(
+        victim,
+        "    {0}  {1}".format(
+            abilityIconString(Hero.GENJI, Button.ABILITY_2),
+            translate({
+                Language.ENGLISH: "Executed {0} for sleep-locking".format(eventPlayer),
+                Language.SPANISH: "Ejecutando a {0} por abusar de dardos tranquilizadores".format(eventPlayer)
+            })
+        )
+    )
     attacker.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(attacker.MedalQueue)
-    smallMessage(attacker, "    {0}  Executed for sleep-locking {1}".format(abilityIconString(Hero.GENJI, Button.ABILITY_2), victim))
+    smallMessage(
+        attacker,
+        "    {0}  {1}".format(
+            abilityIconString(Hero.GENJI, Button.ABILITY_2),
+            translate({
+                Language.ENGLISH: "Executed for sleep-locking {0}".format(victim),
+                Language.SPANISH: "Ejectado abusar de dardos tranquilizadores a {0}".format(victim)
+            })
+        )
+    )
 
 
 rule "Sleep-lock resets after 5s without sleeping anyone":
@@ -62,7 +80,16 @@ rule "Wake slept player if attacker dies after using sleep dart":
         victim.communicate(Comms.THANKS)
     else: # if the attacker is dead when sleep dart hits
         victim.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(victim.MedalQueue)
-        smallMessage(victim, "    {0}  {1} died, awaking...".format(abilityIconString(Hero.MERCY, Button.ABILITY_2), attacker))
+        smallMessage(
+            victim,
+            "    {0}  {1}".format(
+                abilityIconString(Hero.MERCY, Button.ABILITY_2),
+                translate({
+                    Language.ENGLISH: "{0} died, awaking...".format(attacker),
+                    Language.SPANISH: "{0} murío, despertandote...".format(attacker)
+                })
+            )
+        )
         wait(0.5, Wait.ABORT_WHEN_FALSE)
         damage(victim, null, 1)
         wait(0.5)

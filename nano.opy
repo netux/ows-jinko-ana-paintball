@@ -4,7 +4,7 @@ rule "While score < NANO_SCORE, allow all buttons":
     @Event eachPlayer
     @Hero ana
     @Condition (eventPlayer.getScore() < NANO_SCORE and eventPlayer.isAlive())
-    
+
     wait(0.2) #?
     eventPlayer.allowButton(Button.PRIMARY_FIRE)
     eventPlayer.allowButton(Button.SECONDARY_FIRE)
@@ -38,8 +38,26 @@ rule "When score = NANO_SCORE, disable all except sleep dart, warn other players
     eventPlayer.disallowButton(Button.SECONDARY_FIRE)
     eventPlayer.disallowButton(Button.MELEE)
     eventPlayer.disallowButton(Button.RELOAD)
-    bigMessage(getAllPlayers().exclude(eventPlayer), "{0}  {1} wins in 1 kill  {0}".format(iconString(Icon.WARNING), eventPlayer))
-    bigMessage(eventPlayer, "{0}  use sleep dart to win  {0}".format(abilityIconString(Hero.ANA, Button.ABILITY_1)))
+    bigMessage(
+        getAllPlayers().exclude(eventPlayer),
+        "{0}  {1}  {0}".format(
+            iconString(Icon.WARNING),
+            translate({
+                Language.ENGLISH: "{0} wins in 1 kill".format(eventPlayer),
+                Language.SPANISH: "{0} gana en 1 punto".format(eventPlayer)
+            })
+        )
+    )
+    bigMessage(
+        eventPlayer,
+        "{0}  {1}  {0}".format(
+            abilityIconString(Hero.ANA, Button.ABILITY_1),
+            translate({
+                Language.ENGLISH: "use sleep dart to win",
+                Language.SPANISH: "usa tu dardo tranquilizante para ganar"
+            })
+        )
+    )
 
 
 rule "While score = NANO_SCORE, sleep dart cooldown is 1.5":

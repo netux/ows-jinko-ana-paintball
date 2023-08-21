@@ -1,6 +1,6 @@
 #!mainFile "ANA_PB.opy"
 
-rule "Kill logic": 
+rule "Kill logic":
     @Event playerDealtDamage #cant use final blow because it breaks eventability conditions
     @Hero ana
     @Condition eventAbility == Button.PRIMARY_FIRE or (eventAbility == Button.MELEE and victim.hasStatusEffect(Status.ASLEEP))
@@ -22,7 +22,7 @@ rule "Kill logic":
         attacker.MedalQueue.append(Medal.FIRST_BLOOD)
         FirstBlood = not FirstBlood
         async(SayVoiceline, AsyncBehavior.NOOP)
-                
+
     if attacker.isFiringPrimaryFire() and attacker.isFiringSecondaryFire():    # SCOPED KILLS
         attacker.ScopedHits +=1
         attacker.RaycastLastHitPlayer = attacker
@@ -41,20 +41,38 @@ rule "Kill logic":
         attacker.ScopedAccuracy = round((attacker.ScopedHits / attacker.ScopedShots)*100)
         BestScopedAccuracyPlayer = sorted([scoper for scoper in getAllPlayers() if scoper.ScopedShots >= 15], lambda p: p.ScopedAccuracy).last()
         BestScopedAccuracyValue = BestScopedAccuracyPlayer.ScopedAccuracy
-        
+
         if attacker.EarnedCollateral > 1:
             attacker.MedalQueue.append(Medal.COLLATERAL_KILLS)
-            bigMessage(getAllPlayers().exclude(attacker), "{0}  {1} got {2} collateral kills!  {0}".format(abilityIconString(Hero.ZARYA, Button.ABILITY_2), attacker, attacker.EarnedCollateral))
-            bigMessage(attacker, "{0}  {1} collateral kills!  {0}".format(abilityIconString(Hero.ZARYA, Button.ABILITY_2), attacker.EarnedCollateral))
+            bigMessage(
+                getAllPlayers().exclude(attacker),
+                "{0}  {1}  {0}".format(
+                    abilityIconString(Hero.ZARYA, Button.ABILITY_2),
+                    translate({
+                        Language.ENGLISH: "{0} got {1} collateral kills!".format(attacker, attacker.EarnedCollateral),
+                        Language.SPANISH: "{0} obtuvo {1} asesinatos colaterales!".format(attacker, attacker.EarnedCollateral)
+                    })
+                )
+            )
+            bigMessage(
+                attacker,
+                "{0}  {1}  {0}".format(
+                    abilityIconString(Hero.ZARYA, Button.ABILITY_2),
+                    translate({
+                        Language.ENGLISH: "{0} collateral kills!".format(attacker.EarnedCollateral),
+                        Language.SPANISH: "{0} asesinatos colaterales!".format(attacker.EarnedCollateral)
+                    })
+                )
+            )
 
     elif eventAbility == Button.PRIMARY_FIRE:    # NOSCOPE KILLS
         attacker.KillStreak += 1
         attacker.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(attacker.MedalQueue)
-    
+
     else:    # MELEE KILLS
         attacker.KillStreak += 1
         if victim.isInAir() and attacker.isInAir():
-            attacker.MedalQueue.append(Medal.DREAMCATCHER)  
+            attacker.MedalQueue.append(Medal.DREAMCATCHER)
 
         attacker.Executes += 1
         attacker.PunchDrunk += 1
@@ -65,9 +83,27 @@ rule "Kill logic":
             attacker.DemotionVictim = victim
             attacker.MedalQueue.append(Medal.DEMOTION)
             async(SaySorry, AsyncBehavior.NOOP)
-            smallMessage(getAllPlayers().exclude([victim, attacker]), "    {0}  {1} demoted {2}!".format(abilityIconString(Hero.HAMMOND, Button.CROUCH), attacker, victim))
+            smallMessage(
+                getAllPlayers().exclude([victim, attacker]),
+                "    {0}  {1}".format(
+                    abilityIconString(Hero.HAMMOND, Button.CROUCH),
+                    translate({
+                        Language.ENGLISH: "{0} demoted {1}!".format(attacker, victim),
+                        Language.SPANISH: "{0} degrado a {1}!".format(attacker, victim)
+                    })
+                )
+            )
             victim.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(victim.MedalQueue)
-            smallMessage(victim, "    {0}  {1} demoted you".format(abilityIconString(Hero.HAMMOND, Button.CROUCH), attacker))
+            smallMessage(
+                victim,
+                "    {0}  {1}".format(
+                    abilityIconString(Hero.HAMMOND, Button.CROUCH),
+                    translate({
+                        Language.ENGLISH: "{0} demoted you".format(attacker),
+                        Language.SPANISH: "{0} te degrado".format(attacker)
+                    })
+                )
+            )
             victim.setScore(victim.getScore()-1)
             attacker.DemotedPlayers += 1
             playEffect(attacker, DynamicEffect.ANA_BIOTIC_GRENADE_EXPLOSION_SOUND, Color.WHITE, victim, 200)
@@ -75,15 +111,15 @@ rule "Kill logic":
 
             if victim.getScore() == NANO_SCORE -1:
                 attacker.MedalQueue.append(Medal.SHOWSTOPPER)
-        
+
         elif attacker.getScore() < NANO_SCORE:
             attacker.MedalQueue.append(Medal.EXECUTED)
             attacker.setAmmo(0, 15)
-        
+
         if attacker.PunchDrunk == 3:
-            attacker.MedalQueue.append(Medal.PUNCH_DRUNK)  
+            attacker.MedalQueue.append(Medal.PUNCH_DRUNK)
             attacker.PunchDrunk = 0
-    
+
     if victim.KillStreak == ONFIRE_STREAK-1 or victim.KillStreak == RAMPAGE_STREAK-1:
         attacker.MedalQueue.append(Medal.BUZZKILL)
         async(SaySorry(), AsyncBehavior.NOOP)
@@ -91,7 +127,7 @@ rule "Kill logic":
     if victim.KillStreak == NUCLEAR_STREAK -1:
         attacker.MedalQueue.append(Medal.COUNTERMEASURE)
         async(SaySorry(), AsyncBehavior.NOOP)
-    
+
     if victim.IsNuclear:
         attacker.MedalQueue.append(Medal.CATASTROPHE)
 
@@ -115,17 +151,26 @@ rule "Kill logic":
         attacker.StolenFrom.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(attacker.StolenFrom.MedalQueue)    # For the assist
         attacker.StolenFrom.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(attacker.StolenFrom.MedalQueue)    # For the kill
         attacker.StolenFrom.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(attacker.StolenFrom.MedalQueue)    # For the message below
-        smallMessage(attacker.StolenFrom, "    {0}  {1} stole your kill".format(abilityIconString(Hero.ROADHOG, Button.ABILITY_1), attacker))
+        smallMessage(
+            attacker.StolenFrom,
+            "    {0}  {1}".format(
+                abilityIconString(Hero.ROADHOG, Button.ABILITY_1),
+                translate({
+                    Language.ENGLISH: "{0} stole your kill".format(attacker),
+                    Language.SPANISH: "{0} te robo tu presa".format(attacker)
+                })
+            )
+        )
         async(SayThanks, AsyncBehavior.NOOP)
-    
+
     if attacker.isDead():
         async(FromTheGrave, AsyncBehavior.NOOP)
 
     attacker.setUltCharge((attacker.getScore()/NANO_SCORE)*100)
-    
+
     if attacker.getScore() == NANO_SCORE - 2:
         async(SayUltStatus, AsyncBehavior.NOOP)
-    
+
     attacker.ComebackCount = 0
 
 
@@ -134,7 +179,7 @@ rule "Respawn logic":
     @Hero ana
     @Condition not MatchEnded
     @Condition SpawnPointSettings != 0
-    
+
     eventPlayer.disableNameplatesFor([getAllPlayers(), not localPlayer.IsPlayer])
     wait(0.7)
     eventPlayer.setInvisibility(Invis.ALL)
@@ -142,7 +187,7 @@ rule "Respawn logic":
     RespawnSystem()
     eventPlayer.setInvisibility(Invis.NONE)
     eventPlayer.enableNameplatesFor(getAllPlayers())
-    
+
 
 rule "Reset players upon death":
     @Event playerDied
