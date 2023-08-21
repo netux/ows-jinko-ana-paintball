@@ -210,7 +210,7 @@ globalvar Rainbow
 # TRANSLATIONS
 globalvar TranslationsMapping
 
-enum Languages:
+enum Language:
     ENGLISH = 0,
     SPANISH = 1
 

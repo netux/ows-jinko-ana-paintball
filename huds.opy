@@ -14,10 +14,10 @@ rule "PLAYER HUDs":
     # SCOREBOARD STUFF
     hudSubtext(
         localPlayer.IsPlayer,
-        translate(
-            "                                                                                                                www.jinko.dev/discord                  use game code  ▶  1DMTZ"emptySpace,
-            "                                                                                                                www.jinko.dev/discord                  usa el código  ▶  1DMTZ"emptySpace
-        ),
+        translate({
+            Language.ENGLISH: "                                                                                                                www.jinko.dev/discord                  use game code  ▶  1DMTZ"emptySpace,
+            Language.SPANISH: "                                                                                                                www.jinko.dev/discord                  usa el código  ▶  1DMTZ"emptySpace
+        }),
         HudPosition.LEFT,
         0,
         rgb(rainbow(getTotalTimeElapsed() * 85)),
@@ -26,10 +26,10 @@ rule "PLAYER HUDs":
     )
     hudSubheader(
         localPlayer.IsPlayer,
-        translate(
-            "always import code 1DMTZ to play the latest version!",
-            "siempre importa el código 1DMTZ para jugar en la última versión!"
-        ),
+        translate({
+            Language.ENGLISH: "always import code 1DMTZ to play the latest version!",
+            Language.SPANISH: "siempre importa el código 1DMTZ para jugar en la última versión!"
+        }),
         HudPosition.TOP,
         1,
         Color.WHITE,
@@ -46,10 +46,10 @@ rule "PLAYER HUDs":
         localPlayer.IsPlayer,
         "{0} {1}{2}".format(
             "▼" if localPlayer.DisplayStats else "▶",
-            translate(
-                "use [{0}] to toggle stats".format(buttonString(Button.INTERACT)),
-                "usa [{0}] para alternar mostrar estadísticas".format(buttonString(Button.INTERACT)),
-            ),
+            translate({
+                Language.ENGLISH: "use [{0}] to toggle stats".format(buttonString(Button.INTERACT)),
+                Language.SPANISH: "usa [{0}] para alternar mostrar estadísticas".format(buttonString(Button.INTERACT)),
+            }),
             emptySpace
         ),
         HudPosition.LEFT,
@@ -62,10 +62,10 @@ rule "PLAYER HUDs":
         localPlayer.DisplayStats,
         "{}".format(abilityIconString(Hero.SOJOURN, Button.SECONDARY_FIRE)),
         "{}          " emptySpace.format(
-            translate(
-                "Scoped Accuracy",
-                "Precición con la mira"
-            )
+            translate({
+                Language.ENGLISH: "Scoped Accuracy",
+                Language.SPANISH: "Precición con la mira"
+            })
         ),
         "{0}%".format(localPlayer.ScopedAccuracy),
         HudPosition.LEFT,
@@ -79,20 +79,20 @@ rule "PLAYER HUDs":
     hudText(
         localPlayer.DisplayStats, "{}".format(abilityIconString(Hero.ANA, Button.ULTIMATE)),
         "{}          " emptySpace.format(
-            translate(
-                "Noscope Accuracy",
-                "Precición sin la mira"
-            )
+            translate({
+                Language.ENGLISH: "Noscope Accuracy",
+                Language.SPANISH: "Precición sin la mira"
+            })
         ),
         "{0}%".format(localPlayer.NoscopeAccuracy),
         HudPosition.LEFT, 11, rgb(rainbow(getTotalTimeElapsed() * 85)) if localPlayer.NoscopeAccuracy == BestNoscopeAccuracyValue and localPlayer.NoscopeShots >= 15 and localPlayer.NoscopeAccuracy > 0 else customGreen, Color.WHITE, rgb(rainbow(getTotalTimeElapsed() * 85)) if localPlayer.NoscopeAccuracy == BestNoscopeAccuracyValue and localPlayer.NoscopeShots >= 15 and localPlayer.NoscopeAccuracy > 0 else customGreen, HudReeval.VISIBILITY_SORT_ORDER_STRING_AND_COLOR, SpecVisibility.NEVER)
     hudText(
         localPlayer.DisplayStats, "{}".format(abilityIconString(Hero.ANA, Button.ABILITY_1)),
         "{}          " emptySpace.format(
-            translate(
-                "Sleep Dart Accuracy",
-                "Precición con el Dardo Tranquilizante"
-            )
+            translate({
+                Language.ENGLISH: "Sleep Dart Accuracy",
+                Language.SPANISH: "Precición con el Dardo Tranquilizante"
+            })
         ),
         "{0}%".format(localPlayer.SleepAccuracy),
         HudPosition.LEFT,
@@ -106,10 +106,10 @@ rule "PLAYER HUDs":
     hudText(
         [localPlayer.DisplayStats and LongestShotValue >= 40], "{}".format(abilityIconString(Hero.MCCREE, Button.ULTIMATE)),
         "{}          " emptySpace.format(
-            translate(
-                "Longest longshot",
-                "Disparo más largo",
-            )
+            translate({
+                Language.ENGLISH: "Longest longshot",
+                Language.SPANISH: "Disparo más largo",
+            })
         ),
         "{0}: {1}m".format(LongestShotPlayer, LongestShotValue),
         HudPosition.LEFT,
@@ -123,10 +123,10 @@ rule "PLAYER HUDs":
     hudText(
         [localPlayer.DisplayStats and BestKillstreakValue >= ONFIRE_STREAK], "{}".format(abilityIconString(Hero.REAPER, Button.ULTIMATE)),
         "{}          " emptySpace.format(
-            translate(
-                "Longest killstreak",
-                "Racha de asesinatos más larga"
-            )
+            translate({
+                Language.ENGLISH: "Longest killstreak",
+                Language.SPANISH: "Racha de asesinatos más larga"
+            })
         ),
         "{0} - {1}k".format(BestKillstreakPlayer, BestKillstreakValue),
         HudPosition.LEFT,
@@ -145,10 +145,10 @@ rule "PLAYER HUDs":
     hudSubheader(
         [localPlayer.DisplayStats],
         "{0}: {1}{2}          ".format(
-            translate(
-                "Current killstreak",
-                "Racha de asesinatos actual"
-            ),
+            translate({
+                Language.ENGLISH: "Current killstreak",
+                Language.SPANISH: "Racha de asesinatos actual"
+            }),
             localPlayer.KillStreak,
             emptySpace
         ),
@@ -166,10 +166,10 @@ rule "PLAYER HUDs":
     hudSubheader(
         [localPlayer.DisplayStats and localPlayer.Deaths > 0 and localPlayer.getScore() > 0],
         "{0}: {1}{2}          ".format(
-            translate(
-                "K/D ratio",
-                "Relación K/D"
-            ),
+            translate({
+                Language.ENGLISH: "K/D ratio",
+                Language.SPANISH: "Relación K/D"
+            }),
             KD(localPlayer),
             emptySpace
         ),
@@ -184,10 +184,10 @@ rule "PLAYER HUDs":
     hudSubheader(
         [localPlayer.DisplayStats and (localPlayer.ScopedShots + localPlayer.NoscopeShots) > 100],
         "{0}: {1}{2}          ".format(
-            translate(
-                "Rifle shots",
-                "Disparos con el rifle"
-            ),
+            translate({
+                Language.ENGLISH: "Rifle shots",
+                Language.SPANISH: "Disparos con el rifle"
+            }),
             (localPlayer.ScopedShots + localPlayer.NoscopeShots),
             emptySpace
         ),
@@ -202,10 +202,10 @@ rule "PLAYER HUDs":
     hudSubheader(
         [localPlayer.DisplayStats and localPlayer.Jumps > 200],
         "{0}: {1}{2}          ".format(
-            translate(
-                "Jumps",
-                "Saltos"
-            ),
+            translate({
+                Language.ENGLISH: "Jumps",
+                Language.SPANISH: "Saltos"
+            }),
             localPlayer.Jumps,
             emptySpace
         ),
@@ -220,10 +220,10 @@ rule "PLAYER HUDs":
     hudSubheader(
         [localPlayer.DisplayStats and localPlayer.StolenKills > 0],
         "{0}: {1}{2}          ".format(
-            translate(
-                "Kills stolen",
-                "Asesinatos robados"
-            ),
+            translate({
+                Language.ENGLISH: "Kills stolen",
+                Language.SPANISH: "Asesinatos robados"
+            }),
             localPlayer.StolenKills,
             emptySpace
         ),
@@ -238,10 +238,10 @@ rule "PLAYER HUDs":
     hudSubheader(
         [localPlayer.DisplayStats and localPlayer.DemotedPlayers > 0],
         "{0}: {1}{2}          ".format(
-            translate(
-                "Players demoted",
-                "Jugadores degradados"
-            ),
+            translate({
+                Language.ENGLISH: "Players demoted",
+                Language.SPANISH: "Jugadores degradados"
+            }),
             localPlayer.DemotedPlayers,
             emptySpace
         ),
@@ -256,10 +256,10 @@ rule "PLAYER HUDs":
     hudSubheader(
         [localPlayer.DisplayStats and localPlayer.PerfectQuickscopes > 0],
         "{0}: {1}{2}          ".format(
-            translate(
-                "Perfect Quickscopes",
-                "Miras-fantasma perfectas"
-            ),
+            translate({
+                Language.ENGLISH: "Perfect Quickscopes",
+                Language.SPANISH: "Miras-fantasma perfectas"
+            }),
             localPlayer.PerfectQuickscopes,
             emptySpace
         ),
@@ -274,10 +274,10 @@ rule "PLAYER HUDs":
     progressBarHud(
         [localPlayer.IsPlayer and localPlayer.HonorBar > 0 and localPlayer.HonorBar < 100],
         localPlayer.HonorBar,
-        translate(
-            "press [{0}] to honor {1}".format(buttonString(Button.ABILITY_2), localPlayer.HonorTarget),
-            "presiona [{0}] para honrar a {1}".format(buttonString(Button.ABILITY_2), localPlayer.HonorTarget),
-        ),
+        translate({
+            Language.ENGLISH: "press [{0}] to honor {1}".format(buttonString(Button.ABILITY_2), localPlayer.HonorTarget),
+            Language.SPANISH: "presiona [{0}] para honrar a {1}".format(buttonString(Button.ABILITY_2), localPlayer.HonorTarget),
+        }),
         HudPosition.TOP,
         10,
         rgb(44,133,81),
@@ -297,10 +297,10 @@ rule "SPECTATOR & POTG HUDs":
     #hudText([not localPlayer.IsPlayer and LongestShotValue >= 40], "{}".format(abilityIconString(Hero.MCCREE, Button.ULTIMATE)), "Longest longshot          " emptySpace, "{0}: {1}m".format(LongestShotPlayer, LongestShotValue), HudPosition.LEFT, 14, customGreen, Color.WHITE, customGreen, HudReeval.VISIBILITY_SORT_ORDER_AND_STRING, SpecVisibility.NEVER)
     hudSubtext(
         [not localPlayer.IsPlayer],
-        translate(
-            "\n\n\nana paintball by jinko - code 1DMTZ\n             www.jinko.dev/discord",
-            "\n\n\nana paintball por jinko - codigo 1DMTZ\n            www.jinko.dev/discord"
-        ),
+        translate({
+            Language.ENGLISH: "\n\n\nana paintball by jinko - code 1DMTZ\n             www.jinko.dev/discord",
+            Language.SPANISH: "\n\n\nana paintball por jinko - codigo 1DMTZ\n            www.jinko.dev/discord"
+        }),
         HudPosition.TOP,
         100,
         rgb(rainbow(getTotalTimeElapsed() * 85)),
