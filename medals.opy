@@ -15,7 +15,7 @@ rule "Send honor medal":
     eventPlayer.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(eventPlayer.MedalQueue)
     smallMessage(eventPlayer, "    {0}  {1}".format(
         iconString(Icon.HAPPY),
-        "honores mandados a {0}!".format(eventPlayer.HonorTarget)
+        "honores enviados a {0}!".format(eventPlayer.HonorTarget)
     ))
     playEffect(eventPlayer, DynamicEffect.BRIGITTE_REPAIR_PACK_ARMOR_SOUND, Color.WHITE, eventPlayer, 200)
 

@@ -42,7 +42,7 @@ rule "If SleepLock = 2, execute attacker, wake victim, reset attacker SleepLock 
         attacker,
         "    {0}  {1}".format(
             abilityIconString(Hero.GENJI, Button.ABILITY_2),
-            "Ejectado abusar de dardos tranquilizadores a {0}".format(victim)
+            "Ejectado a {0} por abusad dardos tranquilizadores".format(victim)
         )
     )
 

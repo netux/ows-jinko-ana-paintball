@@ -22,11 +22,8 @@ rule "Send honor message if GRENADE is pressed":
     eventPlayer.HonorBar = 0
 
     eventPlayer.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(eventPlayer.MedalQueue)
-    smallMessage(
-        eventPlayer,
-        "    {0}  {1}".format(
-            iconString(Icon.HAPPY),
-            "honor enviado a {0}!".format(eventPlayer.HonorTarget)
-        )
-    )
+    smallMessage(eventPlayer, "    {0}  {1}".format(
+        iconString(Icon.HAPPY),
+        "honores enviados a {0}!".format(eventPlayer.HonorTarget)
+    ))
     playEffect(eventPlayer, DynamicEffect.BRIGITTE_REPAIR_PACK_ARMOR_SOUND, Color.WHITE, eventPlayer, 200)
