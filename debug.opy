@@ -32,7 +32,7 @@ rule "Debug HUDs":
     #hudSubtext(eventPlayer, "Cam pos: {}".format(updateEveryTick(NukeImpactPos + normalize(vect(eventPlayer.getFacingDirection().x, 0, eventPlayer.getFacingDirection().z)) * 55 + vect(0, NukeImpactPos.y, 0) + vect(0, 80, 0)), NukeImpactPos, 0), HudPosition.TOP, 100, Color.ORANGE, HudReeval.STRING)
     #hudSubtext(eventPlayer, "NukeImpactPos: {}".format(NukeImpactPos), HudPosition.TOP, 100, Color.ORANGE, HudReeval.STRING)
 
-    
+
 rule "INTERACT: spawn bots":
     @Condition DEBUG_MODE
     @Event eachPlayer
@@ -43,7 +43,7 @@ rule "INTERACT: spawn bots":
     getLastCreatedEntity().startForcingName("Ana {0}".format(BotName))
     BotName += 1
     wait(0.3, Wait.ABORT_WHEN_FALSE)
-    
+
 
 rule "ULT + INTERACT":
     @Condition DEBUG_MODE
@@ -109,7 +109,7 @@ rule "bots honor players'":
     eventPlayer.stopForcingButton(Button.ABILITY_2)
 
 
-rule "Kill all bots": 
+rule "Kill all bots":
     @Condition DEBUG_MODE
     @Event eachPlayer
     @Hero ana
@@ -135,7 +135,7 @@ rule "show spawn points":
         createInWorldText(getAllPlayers(), "{0}".format(SpawnPointSettings[evalOnce(Spawn)]), SpawnPointSettings[evalOnce(Spawn)]+vect(0,0.5,0), 1, Clip.NONE, WorldTextReeval.VISIBILITY_AND_STRING, Color.GREEN, SpecVisibility.NEVER)
         #createEffect(getAllPlayers(), Effect.SPHERE, Color.RED, SpawnPointSettings[evalOnce(Spawn)]+vect(0,2,0), 0.1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
 
-    
+
 rule "log spawn point and facing direction":
     @Condition DEBUG_MODE
     @Event eachPlayer
@@ -209,11 +209,3 @@ rule "Print vectors":
     printLog("NukeImpactPos = vect{}".format(NukeImpactPos))
     printLog("NukeCamPos = vect{}".format(updateEveryTick(NukeImpactPos + normalize(vect(eventPlayer.getFacingDirection().x, 0, eventPlayer.getFacingDirection().z)) * dist + vect(0, NukeImpactPos.y, 0) + heightOffset), NukeImpactPos, 0))
     smallMessage(eventPlayer, "    {} printed log".format(iconString(Icon.CHECKMARK)))
-
-
-rule "debug translations":
-    @Condition DEBUG_MODE
-    @Event eachPlayer
-    @Condition eventPlayer.hasSpawned()
-
-    smallMessage(eventPlayer, "    Tu estás usando Español")
