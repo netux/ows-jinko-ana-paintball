@@ -195,14 +195,6 @@ rule "PLAYER EFFECTS":
     createEffect(localPlayer if eventPlayer.RampageVFX == true else [], Effect.WRECKING_BALL_ADAPTIVE_SHIELD_TARGET, Color.TEAM_1, eventPlayer, 70 if eventPlayer == localPlayer else 200, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
     createEffect(localPlayer if MatchEnded and NukePos else [], Effect.ZENYATTA_ORB_OF_DISCORD_TARGET, Color.TEAM_1, eventPlayer.exclude(Winner), 1, EffectReeval.VISIBILITY_POSITION_AND_RADIUS)
 
-rule "Translations":
-    @Event global
-
-    TranslationsMapping = [ # Same order as the Language enum
-        "Practice Range",
-        "Campo de pruebas"
-    ]
-
 rule "AFK detection":
     @Event eachPlayer
     @Hero ana

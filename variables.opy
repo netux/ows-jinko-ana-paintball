@@ -207,14 +207,6 @@ globalvar NukeCamShakeZ
 globalvar Rainbow
 
 
-# TRANSLATIONS
-globalvar TranslationsMapping
-
-enum Language:
-    ENGLISH = 0,
-    SPANISH = 1
-
-
 # DEBUG
 globalvar BotName = 1
 playervar MedalCount
