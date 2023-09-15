@@ -11,10 +11,7 @@ rule "Hardscope messages":
     eventPlayer.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(eventPlayer.MedalQueue)
     smallMessage(
         eventPlayer,
-        translate({
-            Language.ENGLISH: random.choice(["    Take your time...", "    That's a long hardscope", "    No quickscopes?"]),
-            Language.SPANISH: random.choice(["    Tomate tu tiempo...", "    Asegurate de envocarle al enemigo", "    Sin miras fantasmas?"])
-        })
+        random.choice(["    Tomate tu tiempo...", "    Asegurate de envocarle al enemigo", "    Sin miras fantasmas?"])
     )
         return
 
@@ -31,10 +28,7 @@ rule "If melee an awake player":
         "    {0}{1}  {2}  {0}{1}".format(
             abilityIconString(Hero.ANA, Button.MELEE),
             abilityIconString(Hero.ANA, Button.ABILITY_1),
-            translate({
-                Language.ENGLISH: "Melee only kills sleeping players",
-                Language.SPANISH: "Los puños solo matan a jugadores dormidos"
-            })
+            "Los puños solo matan a jugadores dormidos"
         )
     )
     playEffect(eventPlayer, DynamicEffect.DEBUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 120)
@@ -52,10 +46,7 @@ rule "If nanoboosted player uses disabled buttons":
         eventPlayer,
         "    {0}  {1}  {0}".format(
             iconString(Icon.EXCLAMATION_MARK),
-            translate({
-                Language.ENGLISH: "Use sleep dart to win",
-                Language.SPANISH: "Usa un dardo tranquilizante para ganar"
-            })
+            "Usa un dardo tranquilizante para ganar"
         )
     )
     playEffect(eventPlayer, DynamicEffect.DEBUFF_IMPACT_SOUND, Color.WHITE, eventPlayer, 120)

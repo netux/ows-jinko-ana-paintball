@@ -18,10 +18,7 @@ rule "Remove AI bots to leave space for human players":
         hostPlayer,
         "    {0} {1}".format(
             iconString(Icon.BOLT),
-            translate({
-                Language.ENGLISH: "Removing {0} to leave space for more human players".format(TempAIBotBeingRemovedName),
-                Language.SPANISH: "Echando a {0} para dejar espacio para más jugadores humanos".format(TempAIBotBeingRemovedName)
-            })
+            "Echando a {0} para dejar espacio para más jugadores humanos".format(TempAIBotBeingRemovedName)
         )
     )
 

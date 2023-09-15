@@ -26,10 +26,7 @@ rule "Send honor message if GRENADE is pressed":
         eventPlayer,
         "    {0}  {1}".format(
             iconString(Icon.HAPPY),
-            translate({
-                Language.ENGLISH: "honor sent to {0}!".format(eventPlayer.HonorTarget),
-                Language.SPANISH: "honor enviado a {0}!".format(eventPlayer.HonorTarget)
-            })
+            "honor enviado a {0}!".format(eventPlayer.HonorTarget)
         )
     )
     playEffect(eventPlayer, DynamicEffect.BRIGITTE_REPAIR_PACK_ARMOR_SOUND, Color.WHITE, eventPlayer, 200)

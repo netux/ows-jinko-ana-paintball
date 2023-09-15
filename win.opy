@@ -21,10 +21,7 @@ rule "Nuclear victory":
         Winner,
         "{0} {1} {0}".format(
             iconString(Icon.WARNING),
-            translate({
-                Language.ENGLISH: "Nano-nuke requested!",
-                Language.SPANISH: "Nano-bomba nuclear pedida!"
-            })
+            "Nano-bomba nuclear pedida!"
         ),
         updateEveryTick(localPlayer.getEyePosition() + (100 * (0 * worldVector(Vector.RIGHT, localPlayer, Transform.ROTATION) + ((0.69 - 0.2) * (angleToDirection(horizontalAngleOfDirection(localPlayer.getFacingDirection()), verticalAngleOfDirection(localPlayer.getFacingDirection()) - 90))) + 3 * localPlayer.getFacingDirection()))),
         3,
@@ -125,10 +122,7 @@ rule "Nuclear victory":
 
     createInWorldText(
         getAllPlayers(),
-        translate({
-            Language.ENGLISH: "Nuclear victory!",
-            Language.SPANISH: "Victoria nuclear!"
-        }),
+        "Victoria nuclear!",
         WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, 0.8),
         10,
         Clip.NONE,
@@ -138,10 +132,7 @@ rule "Nuclear victory":
     )
     createInWorldText(
         getAllPlayers(),
-        "{0}\n        jinko.dev/discord".format(translate({
-            Language.ENGLISH: "join the discord server!",
-            Language.SPANISH: "unite al servidor de discord! (solo en ingles)"
-        })),
+        "{0}\n        jinko.dev/discord".format("unite al servidor de discord! (solo en ingles)"),
         WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, -1),
         10,
         Clip.NONE,
@@ -213,14 +204,8 @@ rule "Sleep Dart victory":
     #Amazing in-world text code by josbird https://workshop.codes/wiki/articles/rendering-an-inworld-text-at-a-specific-onscreen-position
     createInWorldText(
         getAllPlayers(),
-        translate({
-            Language.ENGLISH: "longshot victory! {0}m hit!".format(OofString(victim.OofDistance)),
-            Language.SPANISH: "victoria con tiro a larga distancia! Acierto en {0}m!".format(OofString(victim.OofDistance))
-        }) if victim.OofDistance >= LONGSHOT_DISTANCE
-        else translate({
-            Language.ENGLISH: "{0}m sleep dart hit!".format(OofString(victim.OofDistance)),
-            Language.SPANISH: "dardo tranquilizante acertado a {0}m!".format(OofString(victim.OofDistance))
-        }),
+        "victoria con tiro a larga distancia! Acierto en {0}m!".format(OofString(victim.OofDistance)) if victim.OofDistance >= LONGSHOT_DISTANCE
+        else "dardo tranquilizante acertado a {0}m!".format(OofString(victim.OofDistance)),
         WinCamTextPosition(raycast(victim.getEyePosition(), victim.getEyePosition() + directionTowards(attacker, victim) * -2 + Vector.UP * 0.5, null, null, true).getHitPosition(), victim.getEyePosition() + vect(0, -1, 0), 0, 0.8),
         10,
         Clip.NONE,
@@ -230,10 +215,7 @@ rule "Sleep Dart victory":
     )
     createInWorldText(
         getAllPlayers(),
-        "{0}\n        jinko.dev/discord".format(translate({
-            Language.ENGLISH: "join the discord server!",
-            Language.SPANISH: "unite al servidor de discord! (solo en ingles)"
-        })),
+        "{0}\n        jinko.dev/discord".format("unite al servidor de discord! (solo en ingles)"),
         WinCamTextPosition(raycast(victim.getEyePosition(), victim.getEyePosition() + directionTowards(attacker, victim) * -2 + Vector.UP * 0.5, null, null, true).getHitPosition(), victim.getEyePosition() + vect(0, -1, 0), 0, -0.8),
         10,
         Clip.NONE,
@@ -256,10 +238,7 @@ rule "Fix camera if last victim leaves the game":
         getAllPlayers().startCamera(NukeCamPos, NukeImpactPos, 0)
         createInWorldText(
             getAllPlayers(),
-            translate({
-                Language.ENGLISH: "The last victim left the game lol",
-                Language.SPANISH: "La última victima se fue del juego lol"
-            }),
+            "La última victima se fue del juego lol",
             WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, 0.8),
             10,
             Clip.NONE,
@@ -269,10 +248,7 @@ rule "Fix camera if last victim leaves the game":
         )
         createInWorldText(
             getAllPlayers(),
-            "{0}\n        jinko.dev/discord".format(translate({
-                Language.ENGLISH: "join the discord server!",
-                Language.SPANISH: "unite al servidor de discord! (solo en ingles)"
-            })),
+            "{0}\n        jinko.dev/discord".format("unite al servidor de discord! (solo en ingles)"),
             WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, -1),
             10,
             Clip.NONE,

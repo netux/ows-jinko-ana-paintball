@@ -66,10 +66,7 @@ rule "FOREST create TP":
 
     createInWorldText(
         [localPlayer.IsPlayer and isInLoS(localPlayer.getEyePosition(), vect(-32, 13, 8), BarrierLos.BLOCKED_BY_ALL_BARRIERS) and angleBetweenVectors(localPlayer.getFacingDirection(), directionTowards(localPlayer.getEyePosition(), vect(-32, 13, 8))) < 15 and distance(vect(-32, 14.5, 8), localPlayer) <= 25],
-        translate({
-            Language.ENGLISH: "teleporter",
-            Language.SPANISH: "teletransportador"
-        }),
+        "teletransportador",
         vect(-32, 17, 8),
         2,
         Clip.SURFACES,

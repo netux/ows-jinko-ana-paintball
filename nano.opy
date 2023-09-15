@@ -42,20 +42,14 @@ rule "When score = NANO_SCORE, disable all except sleep dart, warn other players
         getAllPlayers().exclude(eventPlayer),
         "{0}  {1}  {0}".format(
             iconString(Icon.WARNING),
-            translate({
-                Language.ENGLISH: "{0} wins in 1 kill".format(eventPlayer),
-                Language.SPANISH: "{0} gana en 1 punto".format(eventPlayer)
-            })
+            "{0} gana en 1 punto".format(eventPlayer)
         )
     )
     bigMessage(
         eventPlayer,
         "{0}  {1}  {0}".format(
             abilityIconString(Hero.ANA, Button.ABILITY_1),
-            translate({
-                Language.ENGLISH: "use sleep dart to win",
-                Language.SPANISH: "usa tu dardo tranquilizante para ganar"
-            })
+            "usa tu dardo tranquilizante para ganar"
         )
     )
 

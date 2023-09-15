@@ -34,10 +34,7 @@ rule "If SleepLock = 2, execute attacker, wake victim, reset attacker SleepLock 
         victim,
         "    {0}  {1}".format(
             abilityIconString(Hero.GENJI, Button.ABILITY_2),
-            translate({
-                Language.ENGLISH: "Executed {0} for sleep-locking".format(eventPlayer),
-                Language.SPANISH: "Ejecutando a {0} por abusar de dardos tranquilizadores".format(eventPlayer)
-            })
+            "Ejecutando a {0} por abusar de dardos tranquilizadores".format(eventPlayer)
         )
     )
     attacker.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(attacker.MedalQueue)
@@ -45,10 +42,7 @@ rule "If SleepLock = 2, execute attacker, wake victim, reset attacker SleepLock 
         attacker,
         "    {0}  {1}".format(
             abilityIconString(Hero.GENJI, Button.ABILITY_2),
-            translate({
-                Language.ENGLISH: "Executed for sleep-locking {0}".format(victim),
-                Language.SPANISH: "Ejectado abusar de dardos tranquilizadores a {0}".format(victim)
-            })
+            "Ejectado abusar de dardos tranquilizadores a {0}".format(victim)
         )
     )
 
@@ -84,10 +78,7 @@ rule "Wake slept player if attacker dies after using sleep dart":
             victim,
             "    {0}  {1}".format(
                 abilityIconString(Hero.MERCY, Button.ABILITY_2),
-                translate({
-                    Language.ENGLISH: "{0} died, awaking...".format(attacker),
-                    Language.SPANISH: "{0} murío, despertandote...".format(attacker)
-                })
+                "{0} murío, despertandote...".format(attacker)
             )
         )
         wait(0.5, Wait.ABORT_WHEN_FALSE)

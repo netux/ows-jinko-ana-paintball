@@ -176,10 +176,7 @@ rule "PLAYER EFFECTS":
                         else [],
                         "{0} {1}".format(
                             abilityIconString(Hero.ANA, Button.MELEE),
-                            translate({
-                                Language.ENGLISH: "punch to {0}".format("demote" if eventPlayer.getScore() > localPlayer.getScore() else "execute"),
-                                Language.SPANISH: "usa tus puños para {0}".format("degradar" if eventPlayer.getScore() > localPlayer.getScore() else "ejecutar")
-                            })
+                            "usa tus puños para {0}".format("degradar" if eventPlayer.getScore() > localPlayer.getScore() else "ejecutar")
                         ) if localPlayer.Executes < 3
                         else "",
                         eventPlayer+vect(0, +0.4, 0), 1, Clip.SURFACES, WorldTextReeval.VISIBILITY_POSITION_STRING_AND_COLOR,
@@ -219,121 +216,79 @@ rule "AFK detection":
         return
     smallMessage(
         eventPlayer,
-        "    {0}".format(translate({
-            Language.ENGLISH: "Inactivity detected, timeout in 30 seconds",
-            Language.SPANISH: "Inactividad detectada, desconectandote en 30 segundos"
-        })
+        "    {0}".format("Inactividad detectada, desconectandote en 30 segundos"
     ))
     waitUntil(any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding(), 5 if DEBUG_MODE else 20)
     if any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding():
         smallMessage(
             eventPlayer,
-            "    {0}".format(translate({
-                Language.ENGLISH: "No longer inactive",
-                Language.SPANISH: "Ya no estas inactivo"
-            }))
+            "    {0}".format("Ya no estas inactivo")
         )
         return
     smallMessage(
         eventPlayer,
-        "    {0}".format(translate({
-            Language.ENGLISH: "Inactivity detected, timeout in 10 seconds",
-            Language.SPANISH: "Inactividad detectada, desconectandote en 10 segundos"
-        })
+        "    {0}".format("Inactividad detectada, desconectandote en 10 segundos"
     ))
     waitUntil(any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding(), 5)
     if any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding():
         smallMessage(
             eventPlayer,
-            "    {0}".format(translate({
-                Language.ENGLISH: "No longer inactive",
-                Language.SPANISH: "Ya no estas inactivo"
-            }))
+            "    {0}".format("Ya no estas inactivo")
         )
         return
     smallMessage(
         eventPlayer,
-        "    {0}".format(translate({
-            Language.ENGLISH: "Inactivity timeout in 5 seconds",
-            Language.SPANISH: "Desconectandote por inactividad en 5 segundos"
-        }))
+        "    {0}".format("Desconectandote por inactividad en 5 segundos")
     )
     waitUntil(any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding(), 1)
     if any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding():
         smallMessage(
             eventPlayer,
-            "    {0}".format(translate({
-                Language.ENGLISH: "No longer inactive",
-                Language.SPANISH: "Ya no estas inactivo"
-            }))
+            "    {0}".format("Ya no estas inactivo")
         )
         return
     smallMessage(
         eventPlayer,
-        "    {0}".format(translate({
-            Language.ENGLISH: "Inactivity timeout in 4 seconds",
-            Language.SPANISH: "Desconectandote por inactividad en 4 segundos"
-        }))
+        "    {0}".format("Desconectandote por inactividad en 4 segundos")
     )
     waitUntil(any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding(), 1)
     if any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding():
         smallMessage(
             eventPlayer,
-            "    {0}".format(translate({
-                Language.ENGLISH: "No longer inactive",
-                Language.SPANISH: "Ya no estas inactivo"
-            }))
+            "    {0}".format("Ya no estas inactivo")
         )
         return
     smallMessage(
         eventPlayer,
-        "    {0}".format(translate({
-            Language.ENGLISH: "Inactivity timeout in 3 seconds",
-            Language.SPANISH: "Desconectandote por inactividad en 3 segundos"
-        }))
+        "    {0}".format("Desconectandote por inactividad en 3 segundos")
     )
     waitUntil(any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding(), 1)
     if any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding():
         smallMessage(
             eventPlayer,
-            "    {0}".format(translate({
-                Language.ENGLISH: "No longer inactive",
-                Language.SPANISH: "Ya no estas inactivo"
-            }))
+            "    {0}".format("Ya no estas inactivo")
         )
         return
     smallMessage(
         eventPlayer,
-        "    {0}".format(translate({
-            Language.ENGLISH: "Inactivity timeout in 2 seconds",
-            Language.SPANISH: "Desconectandote por inactividad en 2 segundos"
-        }))
+        "    {0}".format("Desconectandote por inactividad en 2 segundos")
     )
     waitUntil(any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding(), 1)
     if any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding():
         smallMessage(
             eventPlayer,
-            "    {0}".format(translate({
-                Language.ENGLISH: "No longer inactive",
-                Language.SPANISH: "Ya no estas inactivo"
-            }))
+            "    {0}".format("Ya no estas inactivo")
         )
         return
     smallMessage(
         eventPlayer,
-        "    {0}".format(translate({
-            Language.ENGLISH: "Inactivity timeout in 1 second",
-            Language.SPANISH: "Desconectandote por inactividad en 1 segundo"
-        }))
+        "    {0}".format("Desconectandote por inactividad en 1 segundo")
     )
     waitUntil(any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding(), 1)
     if any([eventPlayer.isHoldingButton(b) for b in [Button.MELEE, Button.RELOAD, Button.PRIMARY_FIRE, Button.SECONDARY_FIRE]]) or not eventPlayer.isStanding():
         smallMessage(
             eventPlayer,
-            "    {0}".format(translate({
-                Language.ENGLISH: "No longer inactive",
-                Language.SPANISH: "Ya no estas inactivo"
-            }))
+            "    {0}".format("Ya no estas inactivo")
         )
         return
     wait(3, Wait.ABORT_WHEN_FALSE)

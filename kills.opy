@@ -48,20 +48,14 @@ rule "Kill logic":
                 getAllPlayers().exclude(attacker),
                 "{0}  {1}  {0}".format(
                     abilityIconString(Hero.ZARYA, Button.ABILITY_2),
-                    translate({
-                        Language.ENGLISH: "{0} got {1} collateral kills!".format(attacker, attacker.EarnedCollateral),
-                        Language.SPANISH: "{0} obtuvo {1} asesinatos colaterales!".format(attacker, attacker.EarnedCollateral)
-                    })
+                    "{0} obtuvo {1} asesinatos colaterales!".format(attacker, attacker.EarnedCollateral)
                 )
             )
             bigMessage(
                 attacker,
                 "{0}  {1}  {0}".format(
                     abilityIconString(Hero.ZARYA, Button.ABILITY_2),
-                    translate({
-                        Language.ENGLISH: "{0} collateral kills!".format(attacker.EarnedCollateral),
-                        Language.SPANISH: "{0} asesinatos colaterales!".format(attacker.EarnedCollateral)
-                    })
+                    "{0} asesinatos colaterales!".format(attacker.EarnedCollateral)
                 )
             )
 
@@ -87,10 +81,7 @@ rule "Kill logic":
                 getAllPlayers().exclude([victim, attacker]),
                 "    {0}  {1}".format(
                     abilityIconString(Hero.HAMMOND, Button.CROUCH),
-                    translate({
-                        Language.ENGLISH: "{0} demoted {1}!".format(attacker, victim),
-                        Language.SPANISH: "{0} degrado a {1}!".format(attacker, victim)
-                    })
+                    "{0} degrado a {1}!".format(attacker, victim)
                 )
             )
             victim.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(victim.MedalQueue)
@@ -98,10 +89,7 @@ rule "Kill logic":
                 victim,
                 "    {0}  {1}".format(
                     abilityIconString(Hero.HAMMOND, Button.CROUCH),
-                    translate({
-                        Language.ENGLISH: "{0} demoted you".format(attacker),
-                        Language.SPANISH: "{0} te degrado".format(attacker)
-                    })
+                    "{0} te degrado".format(attacker)
                 )
             )
             victim.setScore(victim.getScore()-1)
@@ -155,10 +143,7 @@ rule "Kill logic":
             attacker.StolenFrom,
             "    {0}  {1}".format(
                 abilityIconString(Hero.ROADHOG, Button.ABILITY_1),
-                translate({
-                    Language.ENGLISH: "{0} stole your kill".format(attacker),
-                    Language.SPANISH: "{0} te robo tu presa".format(attacker)
-                })
+                "{0} te robo tu presa".format(attacker)
             )
         )
         async(SayThanks, AsyncBehavior.NOOP)

@@ -14,10 +14,7 @@ rule "Initial spawn point & message":
     smallMessage(
         eventPlayer,
         "    {0}".format(
-            translate({
-                Language.ENGLISH: "Mode by Jinko#2838",
-                Language.SPANISH: "Modo hecho por Jinko#2838"
-            })
+            "Modo hecho por Jinko#2838"
         )
     )
     playEffect(eventPlayer, DynamicEffect.BRIGITTE_REPAIR_PACK_ARMOR_SOUND, Color.WHITE, eventPlayer, 200)
@@ -26,33 +23,21 @@ rule "Initial spawn point & message":
     smallMessage(eventPlayer, random.choice([
         "    {0}  {1}  {0}".format(
             iconString(Icon.ARROW_UP),
-            translate({
-                Language.ENGLISH: "Discord invite up there",
-                Language.SPANISH: "La invitación a Discord está ahí arriba"
-            })
+            "La invitación a Discord está ahí arriba"
         ),
         "    {0}  TikTok: @Jinko_OW".format(iconString(Icon.HEART)),
         "    {0}  {1}".format(
             abilityIconString(Hero.ZARYA, Button.ABILITY_2),
-            translate({
-                Language.ENGLISH: "Scoped shots pierce enemies!",
-                Language.SPANISH: "Los disparos con mira atraviesan a los enemigos!"
-            })
+            "Los disparos con mira atraviesan a los enemigos!"
         ),
         "    {0}  {1}".format(
             iconString(Icon.RADIOACTIVE),
-            translate({
-                Language.ENGLISH: "Get a 15 kills streak for a BIG surprise!",
-                Language.SPANISH: "Obtene una racha de 15 asesinatos para una GRAN sorpresa!"
-            })
+            "Obtene una racha de 15 asesinatos para una GRAN sorpresa!"
         ),
         "    {0}{1}  {2}".format(
             abilityIconString(Hero.ANA, Button.MELEE),
             abilityIconString(Hero.ANA, Button.ABILITY_1),
-            translate({
-                Language.ENGLISH: "Try punching sleeping players!",
-                Language.SPANISH: "Proba usar tus puños en jugadores dormidos!"
-            })
+            "Proba usar tus puños en jugadores dormidos!"
         ),
     ]))
 
