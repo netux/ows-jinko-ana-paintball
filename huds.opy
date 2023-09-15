@@ -14,7 +14,7 @@ rule "PLAYER HUDs":
     # SCOREBOARD STUFF
     hudSubtext(
         localPlayer.IsPlayer,
-        "                                                                                                                www.jinko.dev/discord                  usa el código  ▶  1DMTZ"emptySpace,
+        "                                                                                                                www.jinko.dev/discord                 usa el código  ▶  1DMTZ"emptySpace,
         HudPosition.LEFT,
         0,
         rgb(rainbow(getTotalTimeElapsed() * 85)),

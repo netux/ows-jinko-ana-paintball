@@ -132,7 +132,7 @@ rule "Nuclear victory":
     )
     createInWorldText(
         getAllPlayers(),
-        "{0}\n        jinko.dev/discord".format("unite al servidor de discord! (solo en ingles)"),
+        "{0}\n                                jinko.dev/discord".format("unite al servidor de discord! (solo en ingles)"),
         WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, -1),
         10,
         Clip.NONE,
@@ -215,7 +215,7 @@ rule "Sleep Dart victory":
     )
     createInWorldText(
         getAllPlayers(),
-        "{0}\n        jinko.dev/discord".format("unite al servidor de discord! (solo en ingles)"),
+        "{0}\n                                jinko.dev/discord".format("unite al servidor de discord! (solo en ingles)"),
         WinCamTextPosition(raycast(victim.getEyePosition(), victim.getEyePosition() + directionTowards(attacker, victim) * -2 + Vector.UP * 0.5, null, null, true).getHitPosition(), victim.getEyePosition() + vect(0, -1, 0), 0, -0.8),
         10,
         Clip.NONE,
@@ -248,7 +248,7 @@ rule "Fix camera if last victim leaves the game":
         )
         createInWorldText(
             getAllPlayers(),
-            "{0}\n        jinko.dev/discord".format("unite al servidor de discord! (solo en ingles)"),
+            "{0}\n                                jinko.dev/discord".format("unite al servidor de discord! (solo en ingles)"),
             WinCamTextPosition(NukeCamPos, NukeImpactPos, 0, -1),
             10,
             Clip.NONE,

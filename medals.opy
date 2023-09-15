@@ -110,7 +110,7 @@ rule "Killstreak effects & announcements":
         playEffect(getAllPlayers(), DynamicEffect.ANA_BIOTIC_GRENAGE_NO_HEALING_SOUND, Color.WHITE, attacker, 200)
         createInWorldText(
             attacker,
-            "    {0} {1} {0}\n{2}".format(
+            "                {0} {1} {0}\n{2}".format(
                 iconString(Icon.RADIOACTIVE),
                 "Racha de asesinatos nuclear!",
                 "Presiona [{0}] para pedír una Nano-bomba nuclear".format(buttonString(Button.ULTIMATE))
