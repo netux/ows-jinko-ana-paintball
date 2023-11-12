@@ -182,62 +182,73 @@ rule "Environement death":
     @Hero ana
     @Condition eventWasEnvironment
 
-    # wait(CUSTOM_RESPAWN_TIME)
-    eventPlayer.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(eventPlayer.MedalQueue)
-    smallMessage(eventPlayer, random.choice([
-        "    {0}  {1}".format(
-            heroIcon(random.choice([Hero.ECHO, Hero.MERCY])),
-            "sin alas?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(random.choice([Hero.PHARAH, Hero.WINSTON])),
-            "sin propulsor aéreo?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(Hero.SOMBRA),
-            "sin translocalizador?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(random.choice([Hero.HAMMOND, Hero.WIDOWMAKER])),
-            "sin grapa?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(Hero.KIRIKO),
-            "sin teletransporaciones?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(Hero.TRACER),
-            "sin regresiones?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(Hero.LUCIO),
-            "sin caminamuros?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(Hero.DOOMFIST),
-            "sin embates sísmicos?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(Hero.DVA),
-            "sin armaduras robóticas?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(Hero.GENJI),
-            "sin saltos dobles?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(random.choice([Hero.GENJI, Hero.HANZO, Hero.KIRIKO])),
-            "sin trepamuros?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(Hero.LIFEWEAVER),
-            "sin agarre salvavidas?"
-        ),
-        "    {0}  {1}".format(
-            heroIcon(Hero.SOJOURN),
-            "sin piernas propulsoras?"
-        ),
-    ]))
+    if not strContains("{0}".format(eventPlayer), "ml7"):
+        eventPlayer.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(eventPlayer.MedalQueue)
+        smallMessage(eventPlayer, random.choice([
+            "    {0}  {1}".format(
+                heroIcon(random.choice([Hero.ECHO, Hero.MERCY])),
+                "sin alas?"
+            ),
+                "    {0}  {1}".format(
+                heroIcon(random.choice([Hero.PHARAH, Hero.WINSTON])),
+                    "sin propulsor aéreo?"
+            ),
+            "    {0}  {1}".format(
+                heroIcon(Hero.SOMBRA),
+                    "sin translocalizador?"
+            ),
+            "    {0}  {1}".format(
+                heroIcon(random.choice([Hero.HAMMOND, Hero.WIDOWMAKER])),
+                "sin grapa?"
+            ),
+                "    {0}  {1}".format(
+                heroIcon(Hero.KIRIKO),
+                    "sin teletransporaciones?"
+            ),
+            "    {0}  {1}".format(
+                heroIcon(Hero.TRACER),
+                    "sin regresiones?"
+            ),
+            "    {0}  {1}".format(
+                heroIcon(Hero.LUCIO),
+                    "sin caminamuros?"
+            ),
+            "    {0}  {1}".format(
+                heroIcon(Hero.DOOMFIST),
+                    "sin embates sísmicos?"
+            ),
+            "    {0}  {1}".format(
+                heroIcon(Hero.DVA),
+                    "sin armaduras robóticas?"
+            ),
+            "    {0}  {1}".format(
+                heroIcon(Hero.GENJI),
+                    "sin saltos dobles?"
+            ),
+            "    {0}  {1}".format(
+                heroIcon(random.choice([Hero.GENJI, Hero.HANZO, Hero.KIRIKO])),
+                    "sin trepamuros?"
+            ),
+            "    {0}  {1}".format(
+                heroIcon(Hero.LIFEWEAVER),
+                    "sin agarre salvavidas?"
+            ),
+            "    {0}  {1}".format(
+                heroIcon(Hero.SOJOURN),
+                "sin piernas propulsoras?"
+            ),
+        ]))
+    else: # for ml7
+        eventPlayer.MedalQueue = [Medal.SYSTEM_MESSAGE].concat(eventPlayer.MedalQueue)
+        smallMessage(eventPlayer, random.choice([
+            "    {} would have survived this".format(random.choice(["Olaf", "Denn", "Umarrii"])),
+            "    {} would never die like that".format(random.choice(["Demmos", "Sp33dyal", "Zeldig"])),
+            "    Demmos would have never done this",
+            "    Who put that wall there???",
+            "    Are y'all really subbed to this guy?",
+            "    COOM?!?",
+            ]))
+
 
 
 rule "Longshot":

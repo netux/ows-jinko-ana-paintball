@@ -9,7 +9,6 @@ rule "Initial spawn point & message":
 
     waitUntil(eventPlayer.hasSpawned(), 99999)
     RespawnSystem()
-
     wait(0.2)
     smallMessage(
         eventPlayer,
@@ -19,50 +18,61 @@ rule "Initial spawn point & message":
     )
     playEffect(eventPlayer, DynamicEffect.BRIGITTE_REPAIR_PACK_ARMOR_SOUND, Color.WHITE, eventPlayer, 200)
     wait(0.7)
+    if not strContains("{0}".format(eventPlayer), "ml7"):
+        smallMessage(eventPlayer, random.choice([
+            "    {0}  {1}  {0}".format(
+                iconString(Icon.ARROW_UP),
+                "La invitación a Discord está ahí arriba"
+            ),
+            "    {0}  TikTok: @Jinko_OW".format(iconString(Icon.HEART)),
+            "    {0}  {1}".format(
+                abilityIconString(Hero.ZARYA, Button.ABILITY_2),
+                    "Los disparos con mira atraviesan a los enemigos!"
+            ),
+            "    {0}  {1}".format(
+                iconString(Icon.RADIOACTIVE),
+                    "Obtene una racha de 15 asesinatos para una GRAN sorpresa!"
+            ),
+            "    {0}{1}  {2}".format(
+                abilityIconString(Hero.ANA, Button.MELEE),
+                abilityIconString(Hero.ANA, Button.ABILITY_1),
+                "Proba usar tus puños en jugadores dormidos!"
+            ),
+        ]))
 
-    smallMessage(eventPlayer, random.choice([
-        "    {0}  {1}  {0}".format(
-            iconString(Icon.ARROW_UP),
-            "La invitación a Discord está ahí arriba"
-        ),
-        "    {0}  TikTok: @Jinko_OW".format(iconString(Icon.HEART)),
-        "    {0}  {1}".format(
-            abilityIconString(Hero.ZARYA, Button.ABILITY_2),
-            "Los disparos con mira atraviesan a los enemigos!"
-        ),
-        "    {0}  {1}".format(
-            iconString(Icon.RADIOACTIVE),
-            "Obtene una racha de 15 asesinatos para una GRAN sorpresa!"
-        ),
-        "    {0}{1}  {2}".format(
-            abilityIconString(Hero.ANA, Button.MELEE),
-            abilityIconString(Hero.ANA, Button.ABILITY_1),
-            "Proba usar tus puños en jugadores dormidos!"
-        ),
-    ]))
+    else: # for ml7
+        smallMessage(eventPlayer, random.choice([
+            "    {0}  Guard Check  {0}".format(abilityIconString(Hero.ASHE, Button.ULTIMATE)),
+            "    fun fact: ml7 never got a nuke ml7Point",
+            "    100% nuking this game!! ml7Whoa",
+            "    {0}  Can we get some Guard Check in the chat?".format(abilityIconString(Hero.ASHE, Button.ULTIMATE)),
+            "    {0}  Demmos 1 nuke - ml7 0 nuke".format(iconString(Icon.SAD)),
+            "    ml7 joacă modul meu!! poggies".format(iconString(Icon.SAD)),
+            "    Hewwo. I'm em ewl sewwen (´・ω・`). I wuuve den (^^). I wike cats nyaa~ Owaf pways the game instwead of me, but uwu will never know (≧ω≦)".format(iconString(Icon.SAD)),
+        ]))
 
     playEffect(eventPlayer, DynamicEffect.BRIGITTE_REPAIR_PACK_ARMOR_SOUND, Color.WHITE, eventPlayer, 200)
 
 
 def RespawnSystem():
     eventPlayer.AlivePlayers = [
-        p for p in getAllPlayers() if 
+        p for p in getAllPlayers() if
             p != eventPlayer and
-            p.isAlive() and 
+            p.isAlive() and
             p.hasSpawned() and
-            p.getCurrentHero() == Hero.ANA 
+            p.getCurrentHero() == Hero.ANA
             # p.isDummy
     ]
     eventPlayer.SpawnPointsNotInLOS = [
         s for s in SpawnPointSettings if
-            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[0]) and 
-            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[1]) and 
-            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[2]) and 
-            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[3]) and 
-            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[4]) and 
-            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[5]) and 
+            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[0]) and
+            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[1]) and
+            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[2]) and
+            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[3]) and
+            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[4]) and
+            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[5]) and
             playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[6]) and
-            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[7]) 
+            playerCantSeeSpawnPoint(s[0], eventPlayer.AlivePlayers[7])
     ]
 
     if len(eventPlayer.SpawnPointsNotInLOS) == 0:
@@ -84,13 +94,13 @@ def RespawnSystem():
         # failsafe
         eventPlayer.SpawnPointsFarEnoughFromPlayers = [
         s for s in eventPlayer.SpawnPointsNotInLOS if
-            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[0]) >= RespawnFailsafeDistance and 
-            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[1]) >= RespawnFailsafeDistance and 
-            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[2]) >= RespawnFailsafeDistance and 
-            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[3]) >= RespawnFailsafeDistance and 
-            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[4]) >= RespawnFailsafeDistance and 
-            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[5]) >= RespawnFailsafeDistance and 
-            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[6]) >= RespawnFailsafeDistance and 
+            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[0]) >= RespawnFailsafeDistance and
+            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[1]) >= RespawnFailsafeDistance and
+            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[2]) >= RespawnFailsafeDistance and
+            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[3]) >= RespawnFailsafeDistance and
+            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[4]) >= RespawnFailsafeDistance and
+            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[5]) >= RespawnFailsafeDistance and
+            distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[6]) >= RespawnFailsafeDistance and
             distanceFromPointToPlayer(s[0], eventPlayer.AlivePlayers[7]) >= RespawnFailsafeDistance
         ]
     if len(eventPlayer.SpawnPointsFarEnoughFromPlayers) == 0:
@@ -221,7 +231,7 @@ def RespawnsPETRA():
         [vect(-20.64, -12.03, 8.94), vect(1.00, 0.00, 0.01)],
         [vect(-44.05, -13.01, 18.14), vect(1.00, 0.00, -0.03)],
         [vect(20.49, -12.98, 54.94), vect(-0.68, 0.00, -0.74)],
-    ] # Spawn points: 
+    ] # Spawn points:
 
 def RespawnsMALEVENTO():
     SpawnPointSettings = [
@@ -287,7 +297,7 @@ def RespawnsMALEVENTO():
         [vect(38.05, 7.00, 16.87), vect(-0.30, 0.00, 0.95)],
         [vect(24.99, 6.00, 6.30), vect(-0.29, 0.00, -0.96)],
         [vect(24.29, 5.00, -7.00), vect(-0.25, 0.00, -0.97)],
-    ] # Spawn points: 
+    ] # Spawn points:
 
 def RespawnsDORADO():
     SpawnPointSettings = [
@@ -337,41 +347,41 @@ def RespawnsDORADO():
 
 def RespawnsHOLLYWOOD():
     SpawnPointSettings = [
-        [vect(45.80, 2.75, -45.42), vect(-1.00, 0.00, 0.07)], 
-        [vect(47.43, 2.75, -64.90), vect(-0.97, 0.00, 0.24)], 
-        [vect(35.06, 1.80, -29.22), vect(-0.85, 0.00, -0.53)], 
-        [vect(32.24, 2.75, -62.28), vect(0.23, 0.00, 0.97)], 
-        [vect(28.21, 1.86, -71.50), vect(-0.36, 0.00, -0.93)], 
-        [vect(19.10, 1.75, -93.56), vect(0.58, 0.00, 0.82)], 
-        [vect(-1.82, 4.79, -65.06), vect(0.97, 0.00, -0.24)], 
-        [vect(-6.45, 4.00, -65.06), vect(0.37, 0.00, 0.93)], 
-        [vect(8.52, 4.79, -64.91), vect(-0.54, 0.00, 0.84)], 
-        [vect(-18.79, 1.75, -47.45), vect(0.93, 0.00, -0.37)], 
-        [vect(-19.17, 5.75, -52.35), vect(-0.49, 0.00, -0.87)], 
-        [vect(-17.12, 1.73, -77.89), vect(0.30, 0.00, 0.95)], 
-        [vect(-8.17, 1.60, -73.87), vect(-0.20, 0.00, 0.98)], 
-        [vect(-16.17, 1.73, -71.41), vect(0.98, 0.00, -0.21)], 
-        [vect(6.37, 5.83, -28.17), vect(0.89, 0.00, 0.45)], 
-        [vect(5.83, 5.75, -32.47), vect(-0.97, 0.00, -0.24)], 
-        [vect(-10.73, 1.75, -10.95), vect(0.91, 0.00, -0.42)], 
-        [vect(10.00, 1.75, -1.37), vect(-0.84, 0.00, -0.54)], 
-        [vect(5.23, 1.75, -10.44), vect(1.00, 0.00, 0.01)], 
-        [vect(15.26, 1.75, -8.25), vect(-0.20, 0.00, -0.98)], 
-        [vect(3.03, 1.75, -33.70), vect(0.80, 0.00, 0.60)], 
-        [vect(12.55, 3.33, -33.03), vect(-1.00, 0.00, 0.04)], 
-        [vect(-0.33, 1.87, -29.95), vect(-0.26, 0.00, 0.97)], 
-        [vect(13.55, 1.75, -40.25), vect(0.90, 0.00, 0.44)], 
-        [vect(-12.58, 1.73, -58.24), vect(0.76, 0.00, 0.65)], 
-        [vect(0.99, 1.60, -83.53), vect(0.65, 0.00, 0.76)], 
-        [vect(26.73, 1.61, -47.34), vect(-0.96, 0.00, 0.28)], 
-        [vect(26.73, 1.61, -47.34), vect(-0.15, 0.00, 0.99)], 
-        [vect(8.25, 2.00, -66.19), vect(-0.64, 0.00, -0.77)], 
-        [vect(2.55, 2.00, -67.58), vect(0.20, 0.00, 0.98)], 
-        [vect(2.76, 3.97, -12.79), vect(-0.35, 0.00, -0.94)], 
-        [vect(-6.40, 1.60, -40.34), vect(0.86, 0.00, 0.51)], 
-        [vect(42.16, 1.75, -68.16), vect(-0.99, 0.00, 0.12)], 
-        [vect(42.16, 1.75, -68.16), vect(-0.48, 0.00, -0.88)], 
-        [vect(37.74, 2.75, -53.24), vect(-1.00, 0.00, -0.02)], 
+        [vect(45.80, 2.75, -45.42), vect(-1.00, 0.00, 0.07)],
+        [vect(47.43, 2.75, -64.90), vect(-0.97, 0.00, 0.24)],
+        [vect(35.06, 1.80, -29.22), vect(-0.85, 0.00, -0.53)],
+        [vect(32.24, 2.75, -62.28), vect(0.23, 0.00, 0.97)],
+        [vect(28.21, 1.86, -71.50), vect(-0.36, 0.00, -0.93)],
+        [vect(19.10, 1.75, -93.56), vect(0.58, 0.00, 0.82)],
+        [vect(-1.82, 4.79, -65.06), vect(0.97, 0.00, -0.24)],
+        [vect(-6.45, 4.00, -65.06), vect(0.37, 0.00, 0.93)],
+        [vect(8.52, 4.79, -64.91), vect(-0.54, 0.00, 0.84)],
+        [vect(-18.79, 1.75, -47.45), vect(0.93, 0.00, -0.37)],
+        [vect(-19.17, 5.75, -52.35), vect(-0.49, 0.00, -0.87)],
+        [vect(-17.12, 1.73, -77.89), vect(0.30, 0.00, 0.95)],
+        [vect(-8.17, 1.60, -73.87), vect(-0.20, 0.00, 0.98)],
+        [vect(-16.17, 1.73, -71.41), vect(0.98, 0.00, -0.21)],
+        [vect(6.37, 5.83, -28.17), vect(0.89, 0.00, 0.45)],
+        [vect(5.83, 5.75, -32.47), vect(-0.97, 0.00, -0.24)],
+        [vect(-10.73, 1.75, -10.95), vect(0.91, 0.00, -0.42)],
+        [vect(10.00, 1.75, -1.37), vect(-0.84, 0.00, -0.54)],
+        [vect(5.23, 1.75, -10.44), vect(1.00, 0.00, 0.01)],
+        [vect(15.26, 1.75, -8.25), vect(-0.20, 0.00, -0.98)],
+        [vect(3.03, 1.75, -33.70), vect(0.80, 0.00, 0.60)],
+        [vect(12.55, 3.33, -33.03), vect(-1.00, 0.00, 0.04)],
+        [vect(-0.33, 1.87, -29.95), vect(-0.26, 0.00, 0.97)],
+        [vect(13.55, 1.75, -40.25), vect(0.90, 0.00, 0.44)],
+        [vect(-12.58, 1.73, -58.24), vect(0.76, 0.00, 0.65)],
+        [vect(0.99, 1.60, -83.53), vect(0.65, 0.00, 0.76)],
+        [vect(26.73, 1.61, -47.34), vect(-0.96, 0.00, 0.28)],
+        [vect(26.73, 1.61, -47.34), vect(-0.15, 0.00, 0.99)],
+        [vect(8.25, 2.00, -66.19), vect(-0.64, 0.00, -0.77)],
+        [vect(2.55, 2.00, -67.58), vect(0.20, 0.00, 0.98)],
+        [vect(2.76, 3.97, -12.79), vect(-0.35, 0.00, -0.94)],
+        [vect(-6.40, 1.60, -40.34), vect(0.86, 0.00, 0.51)],
+        [vect(42.16, 1.75, -68.16), vect(-0.99, 0.00, 0.12)],
+        [vect(42.16, 1.75, -68.16), vect(-0.48, 0.00, -0.88)],
+        [vect(37.74, 2.75, -53.24), vect(-1.00, 0.00, -0.02)],
         [vect(27.47, 1.63, -93.54), vect(-0.72, 0.00, 0.70)],
         [vect(37.79, 1.60, -83.91), vect(-0.13, 0.00, 0.99)],
         [vect(22.42, 1.86, -78.92), vect(0.92, 0.00, -0.40)],
@@ -420,7 +430,7 @@ def RespawnsHOLLYWOOD():
         [vect(-25.04, 5.75, -52.57), vect(1.00, 0.00, -0.02)],
         [vect(-14.11, 1.73, -69.58), vect(0.74, 0.00, -0.67)],
         [vect(-16.76, 1.73, -62.03), vect(0.86, 0.00, -0.52)],
-    ] # Spawn points: 
+    ] # Spawn points:
 
 def RespawnsBLIZZWORLD():
     SpawnPointSettings = [
@@ -488,7 +498,7 @@ def RespawnsBLIZZWORLD():
         [vect(-68.42, 1.75, 150.16), vect(0.95, 0.00, -0.30)],
         [vect(-77.19, 1.75, 156.09), vect(0.58, 0.00, -0.82)],
         [vect(-77.72, 0.90, 139.31), vect(0.98, 0.00, -0.21)],
-    ] # Spawn points: 
+    ] # Spawn points:
 
 def RespawnsEICHENWALDE():
     SpawnPointSettings = [
@@ -821,4 +831,4 @@ def RespawnsKANEZAKA():
         [vect(-23.75, 6.00, -28.43), vect(0.93, 0.00, -0.36)],
         [vect(-10.56, 10.50, 17.96), vect(-0.98, 0.00, -0.20)],
         [vect(-14.82, 10.50, 13.06), vect(-0.31, 0.00, 0.95)],
-    ] # Spawn points: 
+    ] # Spawn points:
